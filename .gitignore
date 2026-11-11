@@ -1,0 +1,46 @@
+
+### SPRING BOOT ###
+HELP.md
+
+### GRADLE ###
+.gradle/
+build/
+
+### ECLIPSE / SPRING TOOLS ###
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.metadata/
+.springBeans
+.sts4-cache/
+bin/
+
+### INTELLIJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### NETBEANS ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS CODE ###
+.vscode/
+
+### ARCHIVOS TEMPORALES ###
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+### CONFIGURACIÓN LOCAL Y SECRETOS ###
+.env
+.env.*
+!.env.example
