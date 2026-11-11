@@ -1,0 +1,2347 @@
+{
+  "date": "2026-11-11",
+  "timezone": "Europe/Madrid",
+  "initialTestedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8",
+  "finalTestedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f",
+  "mode": "Swagger UI mediante Computer Use; lectura DOM de respuesta real",
+  "cases": [
+    {
+      "id": "A01",
+      "op": "login",
+      "scenario": "Login correcto de Ana",
+      "input": "Correo de Ana y contraseña ficticia (omitida)",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "token": "[OCULTO]"
+      },
+      "pass": true,
+      "evidence": [
+        "01_login_200.png"
+      ],
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "A02",
+      "op": "login",
+      "scenario": "Contraseña incorrecta",
+      "input": "Ana; contraseña incorrecta omitida",
+      "expected": 401,
+      "actual": 401,
+      "body": {
+        "message": "Correo o contraseña incorrectos."
+      },
+      "pass": true,
+      "evidence": [
+        "02_login_401.png"
+      ],
+      "time": "2026-11-11T04:37:58.179Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "A03",
+      "op": "login",
+      "scenario": "Email vacío",
+      "input": "email vacío; contraseña omitida",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "El correo y la contraseña son obligatorios."
+      },
+      "pass": true,
+      "evidence": [
+        "23_login_email_vacio_400.png"
+      ],
+      "time": "2026-11-11T04:37:58.888Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "A04",
+      "op": "getContainers",
+      "scenario": "Token numérico inventado",
+      "input": "Token numérico inactivo (omitido)",
+      "expected": 401,
+      "actual": 401,
+      "body": {
+        "message": "El token no está activo."
+      },
+      "pass": true,
+      "evidence": [
+        "24_token_inventado_401.png"
+      ],
+      "time": "2026-11-11T04:39:01.796Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "A05",
+      "op": "logout",
+      "scenario": "Logout correcto",
+      "input": "Sesión activa de Ana (token omitido)",
+      "expected": 204,
+      "actual": 204,
+      "body": null,
+      "pass": true,
+      "evidence": [
+        "03_logout_204.png"
+      ],
+      "time": "2026-11-11T04:39:14.193Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "A06",
+      "op": "getContainers",
+      "scenario": "Reutilizar token invalidado",
+      "input": "Misma sesión después del logout (token omitido)",
+      "expected": 401,
+      "actual": 401,
+      "body": {
+        "message": "El token no está activo."
+      },
+      "pass": true,
+      "evidence": [
+        "04_token_invalidado_401.png"
+      ],
+      "time": "2026-11-11T04:39:15.583Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "A07",
+      "op": "login",
+      "scenario": "Nuevo login para continuar",
+      "input": "Ana; contraseña omitida",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "token": "[OCULTO]"
+      },
+      "pass": true,
+      "evidence": [
+        "25_nuevo_login_200.png"
+      ],
+      "time": "2026-11-11T04:39:17.893Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "B01",
+      "op": "getContainers",
+      "scenario": "Listado y datos semilla",
+      "input": "Sesión activa de Ana",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONT-001",
+          "address": "Calle Ercilla 10, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 400,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.012,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-002",
+          "address": "Gran Vía 25, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 1200,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.036,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-003",
+          "address": "Calle Licenciado Poza 30, Bilbao",
+          "postalCode": "48011",
+          "capacity": 1500,
+          "packageCount": 1450,
+          "fillLevel": "RED",
+          "estimatedTons": 0.0435,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-004",
+          "address": "Avenida de las Universidades 24, Bilbao",
+          "postalCode": "48007",
+          "capacity": 2500,
+          "packageCount": 900,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.027,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-005",
+          "address": "Calle Rodríguez Arias 8, Bilbao",
+          "postalCode": "48007",
+          "capacity": 1800,
+          "packageCount": 1500,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.045,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-006",
+          "address": "Calle Dato 10, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 2000,
+          "packageCount": 1900,
+          "fillLevel": "RED",
+          "estimatedTons": 0.057,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-007",
+          "address": "Calle Postas 5, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 1500,
+          "packageCount": 700,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.021,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-008",
+          "address": "Paseo de Salamanca 3, Donostia",
+          "postalCode": "20003",
+          "capacity": 2200,
+          "packageCount": 1300,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.039,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-009",
+          "address": "Calle Loyola 7, Donostia",
+          "postalCode": "20003",
+          "capacity": 1600,
+          "packageCount": 1600,
+          "fillLevel": "RED",
+          "estimatedTons": 0.048,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-010",
+          "address": "Avenida de Navarra 12, Donostia",
+          "postalCode": "20013",
+          "capacity": 2000,
+          "packageCount": 1000,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.03,
+          "readingDate": "2026-11-11"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "05_contenedores_listado_200.png"
+      ],
+      "time": "2026-11-11T04:39:20.205Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "C01",
+      "op": "getContainerReadings",
+      "scenario": "Historial inclusivo de cinco días",
+      "input": "CONT-001; 2026-11-07…2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "date": "2026-11-07",
+          "packageCount": 80,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-08",
+          "packageCount": 160,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-09",
+          "packageCount": 240,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-10",
+          "packageCount": 320,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-11",
+          "packageCount": 400,
+          "fillLevel": "GREEN"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "09_historial_200.png"
+      ],
+      "time": "2026-11-11T04:39:39.837Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "C02",
+      "op": "getContainerReadings",
+      "scenario": "Intervalo invertido",
+      "input": "CONT-001; from=2026-11-11; to=2026-11-07",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "El intervalo de fechas no es válido."
+      },
+      "pass": true,
+      "evidence": [
+        "10_historial_fecha_invalida_400.png"
+      ],
+      "time": "2026-11-11T04:39:40.816Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "C03",
+      "op": "getContainerReadings",
+      "scenario": "Contenedor inexistente",
+      "input": "CONT-999; intervalo válido",
+      "expected": 404,
+      "actual": 404,
+      "body": {
+        "message": "No existe el contenedor CONT-999."
+      },
+      "pass": true,
+      "evidence": [
+        "26_historial_inexistente_404.png"
+      ],
+      "time": "2026-11-11T04:39:41.710Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "D01",
+      "op": "createContainer",
+      "scenario": "Alta sin lecturas",
+      "input": "{\"id\":\"CONT-011\",\"address\":\"Calle de Prueba 11, Bilbao\",\"postalCode\":\"48009\",\"capacity\":1000}",
+      "expected": 201,
+      "actual": 201,
+      "body": {
+        "id": "CONT-011",
+        "address": "Calle de Prueba 11, Bilbao",
+        "postalCode": "48009",
+        "capacity": 1000,
+        "packageCount": null,
+        "fillLevel": null,
+        "estimatedTons": null,
+        "readingDate": null
+      },
+      "pass": true,
+      "evidence": [
+        "06_contenedor_alta_201.png"
+      ],
+      "time": "2026-11-11T04:40:10.820Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "D02",
+      "op": "createContainer",
+      "scenario": "Alta duplicada",
+      "input": "Mismo CONT-011",
+      "expected": 409,
+      "actual": 409,
+      "body": {
+        "message": "Ya existe el contenedor CONT-011."
+      },
+      "pass": true,
+      "evidence": [
+        "07_contenedor_duplicado_409.png"
+      ],
+      "time": "2026-11-11T04:40:11.628Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "D03",
+      "op": "createContainer",
+      "scenario": "Capacidad cero",
+      "input": "CONT-012; capacity=0",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "Identificador, dirección, código postal o capacidad incorrectos."
+      },
+      "pass": true,
+      "evidence": [
+        "27_alta_capacidad_cero_400.png"
+      ],
+      "time": "2026-11-11T04:40:12.389Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "D04",
+      "op": "createContainer",
+      "scenario": "Código postal de cuatro dígitos",
+      "input": "CONT-012; postalCode=4800",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "Identificador, dirección, código postal o capacidad incorrectos."
+      },
+      "pass": true,
+      "evidence": [
+        "28_alta_cp_invalido_400.png"
+      ],
+      "time": "2026-11-11T04:40:13.207Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "D05",
+      "op": "assignContainers",
+      "scenario": "Asignar contenedor sin lecturas",
+      "input": "PLASSB; 2026-11-11; [CONT-011]",
+      "expected": 409,
+      "actual": 409,
+      "body": {
+        "message": "El contenedor CONT-011 no tiene lecturas registradas."
+      },
+      "pass": true,
+      "evidence": [
+        "08_contenedor_sin_lectura.png"
+      ],
+      "time": "2026-11-11T04:40:30.058Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "D05-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignaciones tras D05",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [],
+      "pass": true,
+      "evidence": [
+        "29_sin_asignacion_tras_sin_lectura_200.png"
+      ],
+      "time": "2026-11-11T04:40:37.948Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "D05-C",
+      "op": "getPlantCapacity",
+      "scenario": "Capacidad intacta tras D05",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0,
+        "availableTons": 0.4
+      },
+      "pass": true,
+      "evidence": [
+        "30_capacidad_tras_sin_lectura_200.png"
+      ],
+      "time": "2026-11-11T04:40:45.836Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E01",
+      "op": "registerReading",
+      "scenario": "Duplicado de lectura semilla de hoy",
+      "input": "CONT-001; packageCount=500; fillLevel=ORANGE; sin token",
+      "expected": 409,
+      "actual": 409,
+      "body": {
+        "message": "Ya existe una lectura para el contenedor CONT-001 en la fecha 2026-11-11."
+      },
+      "pass": true,
+      "evidence": [
+        "31_sensor_duplicado_semilla_409.png"
+      ],
+      "time": "2026-11-11T04:41:08.634Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E02",
+      "op": "getContainers",
+      "scenario": "Semilla conservada tras duplicado",
+      "input": "Listado; comprobar CONT-001",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONT-001",
+          "address": "Calle Ercilla 10, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 400,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.012,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-002",
+          "address": "Gran Vía 25, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 1200,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.036,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-003",
+          "address": "Calle Licenciado Poza 30, Bilbao",
+          "postalCode": "48011",
+          "capacity": 1500,
+          "packageCount": 1450,
+          "fillLevel": "RED",
+          "estimatedTons": 0.0435,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-004",
+          "address": "Avenida de las Universidades 24, Bilbao",
+          "postalCode": "48007",
+          "capacity": 2500,
+          "packageCount": 900,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.027,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-005",
+          "address": "Calle Rodríguez Arias 8, Bilbao",
+          "postalCode": "48007",
+          "capacity": 1800,
+          "packageCount": 1500,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.045,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-006",
+          "address": "Calle Dato 10, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 2000,
+          "packageCount": 1900,
+          "fillLevel": "RED",
+          "estimatedTons": 0.057,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-007",
+          "address": "Calle Postas 5, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 1500,
+          "packageCount": 700,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.021,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-008",
+          "address": "Paseo de Salamanca 3, Donostia",
+          "postalCode": "20003",
+          "capacity": 2200,
+          "packageCount": 1300,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.039,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-009",
+          "address": "Calle Loyola 7, Donostia",
+          "postalCode": "20003",
+          "capacity": 1600,
+          "packageCount": 1600,
+          "fillLevel": "RED",
+          "estimatedTons": 0.048,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-010",
+          "address": "Avenida de Navarra 12, Donostia",
+          "postalCode": "20013",
+          "capacity": 2000,
+          "packageCount": 1000,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.03,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-011",
+          "address": "Calle de Prueba 11, Bilbao",
+          "postalCode": "48009",
+          "capacity": 1000,
+          "packageCount": null,
+          "fillLevel": null,
+          "estimatedTons": null,
+          "readingDate": null
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "32_sensor_semilla_conservada_200.png"
+      ],
+      "time": "2026-11-11T04:41:09.934Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E03",
+      "op": "registerReading",
+      "scenario": "Primera lectura sin token",
+      "input": "CONT-011; packageCount=125; fillLevel=GREEN",
+      "expected": 201,
+      "actual": 201,
+      "body": {
+        "date": "2026-11-11",
+        "packageCount": 125,
+        "fillLevel": "GREEN"
+      },
+      "pass": true,
+      "evidence": [
+        "12_sensor_primera_lectura_201.png"
+      ],
+      "time": "2026-11-11T04:41:11.489Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E04",
+      "op": "registerReading",
+      "scenario": "Segunda lectura del mismo día",
+      "input": "CONT-011; packageCount=140; fillLevel=GREEN",
+      "expected": 409,
+      "actual": 409,
+      "body": {
+        "message": "Ya existe una lectura para el contenedor CONT-011 en la fecha 2026-11-11."
+      },
+      "pass": true,
+      "evidence": [
+        "13_sensor_duplicado_409.png"
+      ],
+      "time": "2026-11-11T04:41:12.209Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E05",
+      "op": "getContainers",
+      "scenario": "Primera lectura conservada",
+      "input": "Listado; comprobar CONT-011",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONT-001",
+          "address": "Calle Ercilla 10, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 400,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.012,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-002",
+          "address": "Gran Vía 25, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 1200,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.036,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-003",
+          "address": "Calle Licenciado Poza 30, Bilbao",
+          "postalCode": "48011",
+          "capacity": 1500,
+          "packageCount": 1450,
+          "fillLevel": "RED",
+          "estimatedTons": 0.0435,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-004",
+          "address": "Avenida de las Universidades 24, Bilbao",
+          "postalCode": "48007",
+          "capacity": 2500,
+          "packageCount": 900,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.027,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-005",
+          "address": "Calle Rodríguez Arias 8, Bilbao",
+          "postalCode": "48007",
+          "capacity": 1800,
+          "packageCount": 1500,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.045,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-006",
+          "address": "Calle Dato 10, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 2000,
+          "packageCount": 1900,
+          "fillLevel": "RED",
+          "estimatedTons": 0.057,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-007",
+          "address": "Calle Postas 5, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 1500,
+          "packageCount": 700,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.021,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-008",
+          "address": "Paseo de Salamanca 3, Donostia",
+          "postalCode": "20003",
+          "capacity": 2200,
+          "packageCount": 1300,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.039,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-009",
+          "address": "Calle Loyola 7, Donostia",
+          "postalCode": "20003",
+          "capacity": 1600,
+          "packageCount": 1600,
+          "fillLevel": "RED",
+          "estimatedTons": 0.048,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-010",
+          "address": "Avenida de Navarra 12, Donostia",
+          "postalCode": "20013",
+          "capacity": 2000,
+          "packageCount": 1000,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.03,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-011",
+          "address": "Calle de Prueba 11, Bilbao",
+          "postalCode": "48009",
+          "capacity": 1000,
+          "packageCount": 125,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.00375,
+          "readingDate": "2026-11-11"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "14_sensor_estado_conservado_200.png",
+        "14b_sensor_historial_conservado_200.png"
+      ],
+      "time": "2026-11-11T04:41:14.301Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E06",
+      "op": "registerReading",
+      "scenario": "Cantidad superior a capacidad",
+      "input": "CONT-011; packageCount=1001; GREEN",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "Cantidad de envases o nivel de llenado incorrecto."
+      },
+      "pass": true,
+      "evidence": [
+        "33_sensor_exceso_capacidad_400.png"
+      ],
+      "time": "2026-11-11T04:41:28.784Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E07",
+      "op": "registerReading",
+      "scenario": "Cantidad nula",
+      "input": "CONT-011; packageCount=null; GREEN",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "La cantidad de envases y el nivel de llenado son obligatorios."
+      },
+      "pass": true,
+      "evidence": [
+        "34_sensor_cantidad_nula_400.png"
+      ],
+      "time": "2026-11-11T04:41:29.517Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E08",
+      "op": "registerReading",
+      "scenario": "Cantidad omitida",
+      "input": "CONT-011; solo fillLevel=GREEN",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "La cantidad de envases y el nivel de llenado son obligatorios."
+      },
+      "pass": true,
+      "evidence": [
+        "35_sensor_cantidad_omitida_400.png"
+      ],
+      "time": "2026-11-11T04:41:30.262Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E09",
+      "op": "registerReading",
+      "scenario": "Contenedor de sensor inexistente",
+      "input": "CONT-999; 125; GREEN",
+      "expected": 404,
+      "actual": 404,
+      "body": {
+        "message": "No existe el contenedor CONT-999."
+      },
+      "pass": true,
+      "evidence": [
+        "36_sensor_inexistente_404.png"
+      ],
+      "time": "2026-11-11T04:41:31.171Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "E05-H",
+      "op": "getContainerReadings",
+      "scenario": "Historial conserva única lectura de CONT-011",
+      "input": "CONT-011; from=to=2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "date": "2026-11-11",
+          "packageCount": 125,
+          "fillLevel": "GREEN"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "14b_sensor_historial_conservado_200.png"
+      ],
+      "time": "2026-11-11T04:41:56.887Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "F01",
+      "op": "getContainersByZone",
+      "scenario": "Zona con CONT-011 ya leído",
+      "input": "postalCode=48009; date=2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONT-001",
+          "address": "Calle Ercilla 10, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 400,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.012,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-002",
+          "address": "Gran Vía 25, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 1200,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.036,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-011",
+          "address": "Calle de Prueba 11, Bilbao",
+          "postalCode": "48009",
+          "capacity": 1000,
+          "packageCount": 125,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.00375,
+          "readingDate": "2026-11-11"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "11_zona_200.png"
+      ],
+      "time": "2026-11-11T04:41:58.432Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "F02",
+      "op": "getContainersByZone",
+      "scenario": "Zona sin contenedores",
+      "input": "postalCode=99999; date=2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [],
+      "pass": true,
+      "evidence": [
+        "37_zona_vacia_200.png"
+      ],
+      "time": "2026-11-11T04:41:59.290Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "F03",
+      "op": "getContainersByZone",
+      "scenario": "Fecha anterior al historial",
+      "input": "postalCode=48009; date=2026-11-06",
+      "expected": 200,
+      "actual": 200,
+      "body": [],
+      "pass": true,
+      "evidence": [
+        "38_zona_sin_historial_200.png"
+      ],
+      "time": "2026-11-11T04:42:00.114Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "F04",
+      "op": "getContainersByZone",
+      "scenario": "Código postal inválido",
+      "input": "postalCode=4800; date=2026-11-11",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "Código postal o fecha incorrectos."
+      },
+      "pass": true,
+      "evidence": [
+        "39_zona_cp_invalido_400.png"
+      ],
+      "time": "2026-11-11T04:42:00.937Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "G01",
+      "op": "getPlants",
+      "scenario": "Dos plantas simuladas",
+      "input": "Sesión de Ana",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONTSOCKET",
+          "name": "ContSocket Ltd."
+        },
+        {
+          "id": "PLASSB",
+          "name": "PlasSB Ltd."
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "15_plantas_listado_200.png"
+      ],
+      "time": "2026-11-11T04:42:26.741Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "G02",
+      "op": "getPlantCapacity",
+      "scenario": "Capacidad inicial antes de asignaciones",
+      "input": "PLASSB; date=2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0,
+        "availableTons": 0.4
+      },
+      "pass": true,
+      "evidence": [
+        "16_capacidad_inicial_200.png"
+      ],
+      "time": "2026-11-11T04:42:28.635Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "G03",
+      "op": "getPlantCapacity",
+      "scenario": "Planta inexistente",
+      "input": "NO-PLANT; date=2026-11-11",
+      "expected": 404,
+      "actual": 404,
+      "body": {
+        "message": "No existe la planta: NO-PLANT"
+      },
+      "pass": true,
+      "evidence": [
+        "40_planta_inexistente_404.png"
+      ],
+      "time": "2026-11-11T04:42:29.527Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "G04",
+      "op": "getPlantCapacity",
+      "scenario": "Fecha fuera de ventana por exceso",
+      "input": "PLASSB; date=2026-11-21",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "La fecha debe estar entre hoy y los próximos nueve días."
+      },
+      "pass": true,
+      "evidence": [
+        "41_capacidad_fecha_fuera_400.png"
+      ],
+      "time": "2026-11-11T04:42:30.300Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "G05",
+      "op": "getPlantCapacity",
+      "scenario": "Fecha fuera de ventana por defecto",
+      "input": "PLASSB; date=2026-11-10",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "La fecha debe estar entre hoy y los próximos nueve días."
+      },
+      "pass": true,
+      "evidence": [
+        "42_capacidad_fecha_pasada_400.png"
+      ],
+      "time": "2026-11-11T04:42:31.103Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H01",
+      "op": "assignContainers",
+      "scenario": "Asignación correcta de Ana",
+      "input": "PLASSB; 2026-11-11; [CONT-003,CONT-006,CONT-009]",
+      "expected": 201,
+      "actual": 201,
+      "body": {
+        "id": 1,
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "containerIds": [
+          "CONT-003",
+          "CONT-006",
+          "CONT-009"
+        ],
+        "containerCount": 3,
+        "totalPackages": 4950,
+        "totalTons": 0.14850000000000002,
+        "assignedBy": "ana.garcia@ecoembes.es",
+        "createdAt": "2026-11-11T05:42:32.0280997"
+      },
+      "pass": true,
+      "evidence": [
+        "17_asignacion_correcta_201.png"
+      ],
+      "time": "2026-11-11T04:42:32.587Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H02",
+      "op": "getPlantCapacity",
+      "scenario": "Capacidad descontada tras H01",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "18_capacidad_actualizada_200.png"
+      ],
+      "time": "2026-11-11T04:42:33.886Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H03",
+      "op": "getAssignments",
+      "scenario": "Consultar asignación registrada",
+      "input": "PLASSB; date=2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "19_asignaciones_listado_200.png"
+      ],
+      "time": "2026-11-11T04:42:35.466Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H04",
+      "scenario": "Duplicado entre plantas el mismo día",
+      "input": "CONTSOCKET; 2026-11-11; [CONT-003]",
+      "expected": 409,
+      "op": "assignContainers",
+      "actual": 409,
+      "body": {
+        "message": "El contenedor CONT-003 ya está asignado para la fecha 2026-11-11."
+      },
+      "pass": true,
+      "evidence": [
+        "20_asignacion_duplicada_409.png"
+      ],
+      "time": "2026-11-11T04:43:15.577Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H04-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H04",
+      "input": "CONTSOCKET; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [],
+      "pass": true,
+      "evidence": [
+        "20_asignacion_duplicada_409_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:43:16.933Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H04-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H04",
+      "input": "CONTSOCKET; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "CONTSOCKET",
+        "plantName": "ContSocket Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.3,
+        "assignedTons": 0,
+        "availableTons": 0.3
+      },
+      "pass": true,
+      "evidence": [
+        "20_asignacion_duplicada_409_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:43:18.298Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H05",
+      "scenario": "Lista vacía",
+      "input": "PLASSB; hoy; []",
+      "expected": 400,
+      "op": "assignContainers",
+      "actual": 400,
+      "body": {
+        "message": "Indica contenedores sin repetir identificadores."
+      },
+      "pass": true,
+      "evidence": [
+        "43_asignacion_lista_vacia_400.png"
+      ],
+      "time": "2026-11-11T04:43:20.075Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H05-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H05",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "43_asignacion_lista_vacia_400_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:43:21.454Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H05-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H05",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "43_asignacion_lista_vacia_400_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:43:22.992Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H06",
+      "scenario": "Identificadores repetidos",
+      "input": "PLASSB; hoy; [CONT-002,CONT-002]",
+      "expected": 400,
+      "op": "assignContainers",
+      "actual": 400,
+      "body": {
+        "message": "Indica contenedores sin repetir identificadores."
+      },
+      "pass": true,
+      "evidence": [
+        "44_asignacion_ids_repetidos_400.png"
+      ],
+      "time": "2026-11-11T04:43:24.894Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H06-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H06",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "44_asignacion_ids_repetidos_400_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:43:26.248Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H06-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H06",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "44_asignacion_ids_repetidos_400_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:43:28.222Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H07",
+      "scenario": "Selección con contenedor inexistente",
+      "input": "PLASSB; hoy; [CONT-002,CONT-999]",
+      "expected": 404,
+      "op": "assignContainers",
+      "actual": 404,
+      "body": {
+        "message": "No existe el contenedor CONT-999."
+      },
+      "pass": true,
+      "evidence": [
+        "45_asignacion_contenedor_inexistente_404.png"
+      ],
+      "time": "2026-11-11T04:43:40.138Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H07-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H07",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "45_asignacion_contenedor_inexistente_404_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:43:41.481Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H07-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H07",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "45_asignacion_contenedor_inexistente_404_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:43:42.894Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H08",
+      "scenario": "Fecha de asignación nula",
+      "input": "PLASSB; date=null; [CONT-002]",
+      "expected": 400,
+      "op": "assignContainers",
+      "actual": 400,
+      "body": {
+        "message": "La fecha de asignación es obligatoria."
+      },
+      "pass": true,
+      "evidence": [
+        "46_asignacion_fecha_nula_400.png"
+      ],
+      "time": "2026-11-11T04:43:44.958Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H08-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H08",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "46_asignacion_fecha_nula_400_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:43:46.544Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H08-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H08",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "46_asignacion_fecha_nula_400_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:43:48.058Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H09",
+      "scenario": "Fecha de asignación omitida",
+      "input": "PLASSB; sin date; [CONT-002]",
+      "expected": 400,
+      "op": "assignContainers",
+      "actual": 400,
+      "body": {
+        "message": "La fecha de asignación es obligatoria."
+      },
+      "pass": true,
+      "evidence": [
+        "47_asignacion_fecha_omitida_400.png"
+      ],
+      "time": "2026-11-11T04:43:49.419Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H09-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H09",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "47_asignacion_fecha_omitida_400_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:43:50.818Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H09-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H09",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "47_asignacion_fecha_omitida_400_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:43:52.391Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H10",
+      "scenario": "Asignar a planta inexistente",
+      "input": "NO-PLANT; hoy; [CONT-002]",
+      "expected": 404,
+      "op": "assignContainers",
+      "actual": 404,
+      "body": {
+        "message": "No existe la planta: NO-PLANT"
+      },
+      "pass": true,
+      "evidence": [
+        "48_asignacion_planta_inexistente_404.png"
+      ],
+      "time": "2026-11-11T04:44:01.636Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H10-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H10",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "48_asignacion_planta_inexistente_404_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:44:02.939Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H10-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H10",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "48_asignacion_planta_inexistente_404_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:44:04.565Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H11",
+      "scenario": "Fecha hoy más diez días",
+      "input": "PLASSB; 2026-11-21; [CONT-002]",
+      "expected": 400,
+      "op": "assignContainers",
+      "actual": 400,
+      "body": {
+        "message": "La fecha debe estar entre hoy y los próximos nueve días."
+      },
+      "pass": true,
+      "evidence": [
+        "22_asignacion_fecha_invalida_400.png"
+      ],
+      "time": "2026-11-11T04:44:06.107Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H11-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H11",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "22_asignacion_fecha_invalida_400_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:44:07.461Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H11-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H11",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0.14850000000000002,
+        "availableTons": 0.2515
+      },
+      "pass": true,
+      "evidence": [
+        "22_asignacion_fecha_invalida_400_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:44:08.992Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H12",
+      "scenario": "Capacidad cero de PLASSB",
+      "input": "PLASSB; 2026-11-17; [CONT-002]",
+      "expected": 409,
+      "op": "assignContainers",
+      "actual": 409,
+      "body": {
+        "message": "La planta no tiene capacidad suficiente para la asignación."
+      },
+      "pass": true,
+      "evidence": [
+        "49_asignacion_capacidad_cero_409.png"
+      ],
+      "time": "2026-11-11T04:44:10.390Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H12-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H12",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "49_asignacion_capacidad_cero_409_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:44:12.444Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H12-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H12",
+      "input": "PLASSB; 2026-11-17",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-17",
+        "totalTons": 0,
+        "assignedTons": 0,
+        "availableTons": 0
+      },
+      "pass": true,
+      "evidence": [
+        "49_asignacion_capacidad_cero_409_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:44:13.792Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H13",
+      "scenario": "Capacidad insuficiente para diez contenedores",
+      "input": "CONTSOCKET; 2026-11-12; CONT-001…CONT-010; 0,3585 t > 0,30 t",
+      "expected": 409,
+      "op": "assignContainers",
+      "actual": 409,
+      "body": {
+        "message": "La planta no tiene capacidad suficiente para la asignación."
+      },
+      "pass": true,
+      "evidence": [
+        "21_capacidad_insuficiente_409.png"
+      ],
+      "time": "2026-11-11T04:44:26.776Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H13-S",
+      "op": "getAssignments",
+      "scenario": "Sin asignación parcial tras H13",
+      "input": "CONTSOCKET; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [],
+      "pass": true,
+      "evidence": [
+        "21_capacidad_insuficiente_409_sin_asignacion_parcial.png"
+      ],
+      "time": "2026-11-11T04:44:29.066Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "H13-C",
+      "op": "getPlantCapacity",
+      "scenario": "Sin descuento de capacidad tras H13",
+      "input": "CONTSOCKET; 2026-11-12",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "CONTSOCKET",
+        "plantName": "ContSocket Ltd.",
+        "date": "2026-11-12",
+        "totalTons": 0.3,
+        "assignedTons": 0,
+        "availableTons": 0.3
+      },
+      "pass": true,
+      "evidence": [
+        "21_capacidad_insuficiente_409_capacidad_intacta.png"
+      ],
+      "time": "2026-11-11T04:44:31.548Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I01",
+      "op": "getContainers",
+      "scenario": "Token mal formado",
+      "input": "Token no numérico de prueba",
+      "expected": 400,
+      "actual": null,
+      "body": null,
+      "pass": false,
+      "evidence": [
+        "50_token_alfabetico_bloqueado_swagger.png"
+      ],
+      "time": "2026-11-11T04:44:33.004Z",
+      "status": "BLOCKED",
+      "note": "Swagger valida token como integer y bloquea el envío de abc. El 200 anterior era una respuesta previa, no una ejecución de este caso; se ha eliminado del registro.",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I02",
+      "op": "getContainerReadings",
+      "scenario": "Fecha mal formada",
+      "input": "CONT-001; from=11-11-2026; to=2026-11-11",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "Los datos de la petición no tienen un formato válido"
+      },
+      "pass": true,
+      "evidence": [
+        "51_fecha_malformada_400.png"
+      ],
+      "time": "2026-11-11T04:44:34.423Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I03",
+      "op": "getContainers",
+      "scenario": "Token entero fuera del rango long",
+      "input": "Entero de 25 dígitos fuera del rango int64",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "Los datos de la petición no tienen un formato válido"
+      },
+      "pass": true,
+      "evidence": [
+        "52_token_fuera_rango_400.png"
+      ],
+      "time": "2026-11-11T04:45:11.540Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I04",
+      "op": "registerReading",
+      "scenario": "Nivel de llenado desconocido",
+      "input": "CONT-011; 125; fillLevel=BLUE",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "Los datos de la petición no tienen un formato válido"
+      },
+      "pass": true,
+      "evidence": [
+        "53_sensor_enum_invalido_400.png"
+      ],
+      "time": "2026-11-11T04:45:55.504Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I05",
+      "op": "registerReading",
+      "scenario": "Nivel de llenado nulo",
+      "input": "CONT-011; 125; fillLevel=null",
+      "expected": 400,
+      "actual": 400,
+      "body": {
+        "message": "La cantidad de envases y el nivel de llenado son obligatorios."
+      },
+      "pass": true,
+      "evidence": [
+        "54_sensor_nivel_nulo_400.png"
+      ],
+      "time": "2026-11-11T04:45:56.246Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I06",
+      "op": "getPlantCapacity",
+      "scenario": "Extremo válido hoy más nueve días",
+      "input": "CONTSOCKET; 2026-11-20",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "CONTSOCKET",
+        "plantName": "ContSocket Ltd.",
+        "date": "2026-11-20",
+        "totalTons": 0.3,
+        "assignedTons": 0,
+        "availableTons": 0.3
+      },
+      "pass": true,
+      "evidence": [
+        "55_capacidad_limite_200.png"
+      ],
+      "time": "2026-11-11T04:45:58.010Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I07",
+      "op": "getAssignments",
+      "scenario": "Estado final de CONTSOCKET sin asignaciones",
+      "input": "CONTSOCKET; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [],
+      "pass": true,
+      "evidence": [
+        "56_asignaciones_otra_planta_vacias_200.png"
+      ],
+      "time": "2026-11-11T04:45:59.344Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "I08",
+      "op": "getAssignments",
+      "scenario": "Estado final PLASSB con única asignación",
+      "input": "PLASSB; sin filtro date",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:42:32.0280997"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "57_asignaciones_estado_final_200.png"
+      ],
+      "time": "2026-11-11T04:46:00.162Z",
+      "testedCommit": "60b32e32b4e3a4dc1032f0efa0efb4585bd5dfe8"
+    },
+    {
+      "id": "S01",
+      "op": "login",
+      "scenario": "Login en versión final tras reinicio",
+      "input": "Ana; contraseña omitida",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "token": "[OCULTO]"
+      },
+      "pass": true,
+      "evidence": [
+        "58_final_login_200.png"
+      ],
+      "time": "2026-11-11T04:48:39.168Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S02",
+      "op": "getContainers",
+      "scenario": "Semilla restaurada en versión final",
+      "input": "Sesión de Ana; diez contenedores",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONT-001",
+          "address": "Calle Ercilla 10, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 400,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.012,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-002",
+          "address": "Gran Vía 25, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 1200,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.036,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-003",
+          "address": "Calle Licenciado Poza 30, Bilbao",
+          "postalCode": "48011",
+          "capacity": 1500,
+          "packageCount": 1450,
+          "fillLevel": "RED",
+          "estimatedTons": 0.0435,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-004",
+          "address": "Avenida de las Universidades 24, Bilbao",
+          "postalCode": "48007",
+          "capacity": 2500,
+          "packageCount": 900,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.027,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-005",
+          "address": "Calle Rodríguez Arias 8, Bilbao",
+          "postalCode": "48007",
+          "capacity": 1800,
+          "packageCount": 1500,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.045,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-006",
+          "address": "Calle Dato 10, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 2000,
+          "packageCount": 1900,
+          "fillLevel": "RED",
+          "estimatedTons": 0.057,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-007",
+          "address": "Calle Postas 5, Vitoria-Gasteiz",
+          "postalCode": "01001",
+          "capacity": 1500,
+          "packageCount": 700,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.021,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-008",
+          "address": "Paseo de Salamanca 3, Donostia",
+          "postalCode": "20003",
+          "capacity": 2200,
+          "packageCount": 1300,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.039,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-009",
+          "address": "Calle Loyola 7, Donostia",
+          "postalCode": "20003",
+          "capacity": 1600,
+          "packageCount": 1600,
+          "fillLevel": "RED",
+          "estimatedTons": 0.048,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-010",
+          "address": "Avenida de Navarra 12, Donostia",
+          "postalCode": "20013",
+          "capacity": 2000,
+          "packageCount": 1000,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.03,
+          "readingDate": "2026-11-11"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "59_final_listado_semilla_200.png"
+      ],
+      "time": "2026-11-11T04:48:42.198Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S03",
+      "op": "getContainerReadings",
+      "scenario": "Historial en versión final",
+      "input": "CONT-001; 2026-11-07…2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "date": "2026-11-07",
+          "packageCount": 80,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-08",
+          "packageCount": 160,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-09",
+          "packageCount": 240,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-10",
+          "packageCount": 320,
+          "fillLevel": "GREEN"
+        },
+        {
+          "date": "2026-11-11",
+          "packageCount": 400,
+          "fillLevel": "GREEN"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "60_final_historial_200.png"
+      ],
+      "time": "2026-11-11T04:48:45.359Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S04",
+      "op": "createContainer",
+      "scenario": "Alta con nivel nulo en versión final",
+      "input": "{\"id\":\"CONT-011\",\"address\":\"Calle de Prueba 11, Bilbao\",\"postalCode\":\"48009\",\"capacity\":1000}",
+      "expected": 201,
+      "actual": 201,
+      "body": {
+        "id": "CONT-011",
+        "address": "Calle de Prueba 11, Bilbao",
+        "postalCode": "48009",
+        "capacity": 1000,
+        "packageCount": null,
+        "fillLevel": null,
+        "estimatedTons": null,
+        "readingDate": null
+      },
+      "pass": true,
+      "evidence": [
+        "61_final_alta_nullable_201.png"
+      ],
+      "time": "2026-11-11T04:48:48.373Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S05",
+      "op": "registerReading",
+      "scenario": "Sensor en versión final sin token",
+      "input": "CONT-011; 125; GREEN",
+      "expected": 201,
+      "actual": 201,
+      "body": {
+        "date": "2026-11-11",
+        "packageCount": 125,
+        "fillLevel": "GREEN"
+      },
+      "pass": true,
+      "evidence": [
+        "62_final_sensor_201.png"
+      ],
+      "time": "2026-11-11T04:49:08.623Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S06",
+      "op": "getContainersByZone",
+      "scenario": "Zona en versión final",
+      "input": "48009; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONT-001",
+          "address": "Calle Ercilla 10, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 400,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.012,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-002",
+          "address": "Gran Vía 25, Bilbao",
+          "postalCode": "48009",
+          "capacity": 2000,
+          "packageCount": 1200,
+          "fillLevel": "ORANGE",
+          "estimatedTons": 0.036,
+          "readingDate": "2026-11-11"
+        },
+        {
+          "id": "CONT-011",
+          "address": "Calle de Prueba 11, Bilbao",
+          "postalCode": "48009",
+          "capacity": 1000,
+          "packageCount": 125,
+          "fillLevel": "GREEN",
+          "estimatedTons": 0.00375,
+          "readingDate": "2026-11-11"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "63_final_zona_200.png"
+      ],
+      "time": "2026-11-11T04:49:10.518Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S07",
+      "op": "getPlants",
+      "scenario": "Plantas en versión final",
+      "input": "Sesión de Ana",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": "CONTSOCKET",
+          "name": "ContSocket Ltd."
+        },
+        {
+          "id": "PLASSB",
+          "name": "PlasSB Ltd."
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "64_final_plantas_200.png"
+      ],
+      "time": "2026-11-11T04:49:12.292Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S08",
+      "op": "getPlantCapacity",
+      "scenario": "Capacidad inicial tras reinicio final",
+      "input": "PLASSB; 2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": {
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "totalTons": 0.4,
+        "assignedTons": 0,
+        "availableTons": 0.4
+      },
+      "pass": true,
+      "evidence": [
+        "65_final_capacidad_200.png"
+      ],
+      "time": "2026-11-11T04:49:14.453Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S09",
+      "op": "assignContainers",
+      "scenario": "Asignación en versión final",
+      "input": "PLASSB; hoy; [CONT-003,CONT-006,CONT-009]",
+      "expected": 201,
+      "actual": 201,
+      "body": {
+        "id": 1,
+        "plantId": "PLASSB",
+        "plantName": "PlasSB Ltd.",
+        "date": "2026-11-11",
+        "containerIds": [
+          "CONT-003",
+          "CONT-006",
+          "CONT-009"
+        ],
+        "containerCount": 3,
+        "totalPackages": 4950,
+        "totalTons": 0.14850000000000002,
+        "assignedBy": "ana.garcia@ecoembes.es",
+        "createdAt": "2026-11-11T05:49:16.702523"
+      },
+      "pass": true,
+      "evidence": [
+        "66_final_asignacion_201.png"
+      ],
+      "time": "2026-11-11T04:49:17.353Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S10",
+      "op": "getAssignments",
+      "scenario": "Consultar asignación en versión final",
+      "input": "PLASSB; date=2026-11-11",
+      "expected": 200,
+      "actual": 200,
+      "body": [
+        {
+          "id": 1,
+          "plantId": "PLASSB",
+          "plantName": "PlasSB Ltd.",
+          "date": "2026-11-11",
+          "containerIds": [
+            "CONT-003",
+            "CONT-006",
+            "CONT-009"
+          ],
+          "containerCount": 3,
+          "totalPackages": 4950,
+          "totalTons": 0.14850000000000002,
+          "assignedBy": "ana.garcia@ecoembes.es",
+          "createdAt": "2026-11-11T05:49:16.702523"
+        }
+      ],
+      "pass": true,
+      "evidence": [
+        "67_final_consulta_asignacion_200.png"
+      ],
+      "time": "2026-11-11T04:49:20.283Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S11",
+      "op": "logout",
+      "scenario": "Logout en versión final",
+      "input": "Sesión activa final de Ana; token omitido",
+      "expected": 204,
+      "actual": 204,
+      "body": null,
+      "pass": true,
+      "evidence": [
+        "68_final_logout_204.png"
+      ],
+      "time": "2026-11-11T04:49:23.038Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    },
+    {
+      "id": "S12",
+      "op": "getContainers",
+      "scenario": "Token final invalidado",
+      "input": "Misma sesión después de S11; token omitido",
+      "expected": 401,
+      "actual": 401,
+      "body": {
+        "message": "El token no está activo."
+      },
+      "pass": true,
+      "evidence": [
+        "69_final_token_invalidado_401.png"
+      ],
+      "time": "2026-11-11T04:49:25.227Z",
+      "testedCommit": "441f10d4bb62be3c72806f0a44184fe69a65587f"
+    }
+  ]
+}

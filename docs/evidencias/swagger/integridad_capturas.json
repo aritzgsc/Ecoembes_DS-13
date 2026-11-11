@@ -1,0 +1,639 @@
+[
+  {
+    "file": "00_swagger_general.png",
+    "width": 1536,
+    "height": 1872,
+    "bytes": 761893,
+    "sha256": "eba956d31d8c2de3c41734a4943ce581c4446d0966b8a34cbf3a64ebfe239e5f"
+  },
+  {
+    "file": "01_login_200.png",
+    "width": 1420,
+    "height": 1322,
+    "bytes": 281956,
+    "sha256": "0f8da9c535b5676362762a7c2f2da807ac63ac3ab97d05809dcc5a228be2fa65"
+  },
+  {
+    "file": "02_login_401.png",
+    "width": 1420,
+    "height": 1341,
+    "bytes": 323367,
+    "sha256": "79bcd1f07ea1c8ea71732e5e7671def67fb85dbccc48546322942e8dd2f44079"
+  },
+  {
+    "file": "03_logout_204.png",
+    "width": 1420,
+    "height": 827,
+    "bytes": 227559,
+    "sha256": "797fd0ec78c4e9c900066d2795494cc31834969fb51d6cae1bc180ee19a6e420"
+  },
+  {
+    "file": "04_token_invalidado_401.png",
+    "width": 1420,
+    "height": 975,
+    "bytes": 297528,
+    "sha256": "aca308233083ed011a12997a54fa3956d8b355bf0a659929fa726d2b7cd1c73f"
+  },
+  {
+    "file": "05_contenedores_listado_200.png",
+    "width": 1420,
+    "height": 1284,
+    "bytes": 445222,
+    "sha256": "d800a5dd8e0430a35849150e5dba29500ac63899fcfef5debb8e9c362942f90b"
+  },
+  {
+    "file": "06_contenedor_alta_201.png",
+    "width": 1420,
+    "height": 1539,
+    "bytes": 419665,
+    "sha256": "2566f47c82b5ebc9d3d9d2f88e99b1e5a05bbb6c466cae73514daf2bd51ec7d3"
+  },
+  {
+    "file": "07_contenedor_duplicado_409.png",
+    "width": 1420,
+    "height": 1473,
+    "bytes": 384520,
+    "sha256": "257c5773a1321f1e659c78a3cd159c70a56a96bc451367e6711a21f9465400a4"
+  },
+  {
+    "file": "08_contenedor_sin_lectura.png",
+    "width": 1420,
+    "height": 1551,
+    "bytes": 448598,
+    "sha256": "aaa275bfdfa93cc46e9453489303349a800bd77bbda9d4a6f2ce51ea93c29606"
+  },
+  {
+    "file": "09_historial_200.png",
+    "width": 1420,
+    "height": 1435,
+    "bytes": 511159,
+    "sha256": "94866124ab0e8ff6131472ca42335aa4afe02084504b37282dfe025d846d2d5a"
+  },
+  {
+    "file": "10_historial_fecha_invalida_400.png",
+    "width": 1420,
+    "height": 1110,
+    "bytes": 419796,
+    "sha256": "edbe6b9a941d0d86fb3ab97c4a0e79f7e3468fc29e7b9346e9207dd7549bf01e"
+  },
+  {
+    "file": "11_zona_200.png",
+    "width": 1420,
+    "height": 1357,
+    "bytes": 529963,
+    "sha256": "fb870a455a3948808f3f3da99e43a0458a9edf4eede210023b5060abb1fc0541"
+  },
+  {
+    "file": "12_sensor_primera_lectura_201.png",
+    "width": 1420,
+    "height": 1438,
+    "bytes": 411879,
+    "sha256": "f256e2e9c7a5513b4fd4246a070a3ca9da1d243d1b3ec7aec0cc543bfb0257e6"
+  },
+  {
+    "file": "13_sensor_duplicado_409.png",
+    "width": 1420,
+    "height": 1445,
+    "bytes": 434370,
+    "sha256": "a9bebd464655020b420fd19d00d7edd56aef96ca9016e07b4376a51af7984d52"
+  },
+  {
+    "file": "14_sensor_estado_conservado_200.png",
+    "width": 1420,
+    "height": 1284,
+    "bytes": 445098,
+    "sha256": "76c66fafdac7cc3f3c8d1d6cbb4fb8f08885c5c66a5befb2daf8875b81d1717f"
+  },
+  {
+    "file": "14b_sensor_historial_conservado_200.png",
+    "width": 1420,
+    "height": 1147,
+    "bytes": 411735,
+    "sha256": "6c355c6ebe94c9be2a012251eabad14ebb93f1992d8d989fbb083d3c5e609a40"
+  },
+  {
+    "file": "15_plantas_listado_200.png",
+    "width": 1420,
+    "height": 960,
+    "bytes": 295024,
+    "sha256": "813264d6240506cf5ab6c6081db9f3d9a499ca28c25b44c77479577a4aae9b0c"
+  },
+  {
+    "file": "16_capacidad_inicial_200.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 399567,
+    "sha256": "f6a9bb01db16eacefeccd902a904df35442bea53b831635bff77128621c9fcde"
+  },
+  {
+    "file": "17_asignacion_correcta_201.png",
+    "width": 1420,
+    "height": 1731,
+    "bytes": 503707,
+    "sha256": "8a094583d91c83b8297b2b8510121961cf9ef878d60d76d877e97ea4c2e834ee"
+  },
+  {
+    "file": "18_capacidad_actualizada_200.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406672,
+    "sha256": "972151fa034311a153f630efdb81e36a94b5865dab5712cb632c331874187cda"
+  },
+  {
+    "file": "19_asignaciones_listado_200.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 488717,
+    "sha256": "3e15753c05883c648f911fbeb4d7e0fc137221238a920b6c94459d3525e53aa5"
+  },
+  {
+    "file": "20_asignacion_duplicada_409.png",
+    "width": 1420,
+    "height": 1551,
+    "bytes": 453082,
+    "sha256": "062b9ecf127d8da3d4143b4ab3434957ddc213e3d0c6c09aef486fc14e621c55"
+  },
+  {
+    "file": "20_asignacion_duplicada_409_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 404176,
+    "sha256": "739f3398d5c0676dbee12bc41a7ac0a19f16297698aaa6c059d3eca97990bdac"
+  },
+  {
+    "file": "20_asignacion_duplicada_409_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1030,
+    "bytes": 386214,
+    "sha256": "23314aec3c92fad7f5c87192e75123bc530265feb2e8fcee6a27626746ea22ed"
+  },
+  {
+    "file": "21_capacidad_insuficiente_409.png",
+    "width": 1420,
+    "height": 1680,
+    "bytes": 482687,
+    "sha256": "564c52769f6b2cd51d96ef9c81d9329adddf5b7e81759ee08d737ed9d9c27249"
+  },
+  {
+    "file": "21_capacidad_insuficiente_409_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 404301,
+    "sha256": "5490281fb492c24646aa82efaa3bdd4eede3dba72fddfa1eec14fddc2ad08f6b"
+  },
+  {
+    "file": "21_capacidad_insuficiente_409_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1030,
+    "bytes": 386260,
+    "sha256": "0a979e2e9faf513808d19ab13cd8fa2b0eed314402463877f86e35e4c32e742e"
+  },
+  {
+    "file": "22_asignacion_fecha_invalida_400.png",
+    "width": 1420,
+    "height": 1536,
+    "bytes": 437180,
+    "sha256": "e51cb0835ae65f411bf5e4a1d651a6fdea2f478a008d5f8acec045f5b03dca11"
+  },
+  {
+    "file": "22_asignacion_fecha_invalida_400_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406703,
+    "sha256": "f1403775a037b52774e3cca48d16942191e0dd079e5661fc587a057bdc5b1604"
+  },
+  {
+    "file": "22_asignacion_fecha_invalida_400_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483634,
+    "sha256": "21fefd3892c589cecb3e44ad3d8a436a10180813f3c8e33e7aa28b369a59c87e"
+  },
+  {
+    "file": "23_login_email_vacio_400.png",
+    "width": 1420,
+    "height": 1326,
+    "bytes": 318635,
+    "sha256": "a980ef0a8b4793ca8a007d2f121137cf4f661e07537ca998b92e81f23d96f3d8"
+  },
+  {
+    "file": "24_token_inventado_401.png",
+    "width": 1420,
+    "height": 976,
+    "bytes": 299251,
+    "sha256": "20fcc30b7e2930d098d9e25517cde8191a4df1bb1b70107ac0f6b159c3000ba8"
+  },
+  {
+    "file": "25_nuevo_login_200.png",
+    "width": 1420,
+    "height": 1322,
+    "bytes": 280288,
+    "sha256": "4efa8496ed9623ccc561a6795733c8ff710a508d550b705c3f385f47027f1720"
+  },
+  {
+    "file": "26_historial_inexistente_404.png",
+    "width": 1420,
+    "height": 1125,
+    "bytes": 427358,
+    "sha256": "0380942dc6922bc30aa9bcc51507836bdd20691fb3fe2089c98f9cc8b9c95b18"
+  },
+  {
+    "file": "27_alta_capacidad_cero_400.png",
+    "width": 1420,
+    "height": 1458,
+    "bytes": 389973,
+    "sha256": "7e0b3825c3f54de688db52690a53cc2810a6c99b97c4a4dbbf9ee74deedf4222"
+  },
+  {
+    "file": "28_alta_cp_invalido_400.png",
+    "width": 1420,
+    "height": 1458,
+    "bytes": 390909,
+    "sha256": "0fb682e63b1f46998a522716a611fd0e86565f6840af5043f39e07e36180998e"
+  },
+  {
+    "file": "29_sin_asignacion_tras_sin_lectura_200.png",
+    "width": 1420,
+    "height": 1030,
+    "bytes": 384431,
+    "sha256": "ab4e122081185e1e29734e6a38346d34e876439392baeda2061e751f4905537c"
+  },
+  {
+    "file": "30_capacidad_tras_sin_lectura_200.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 401982,
+    "sha256": "4b7d84dc035c50fd99e97b60db1b5bdeeac407a6c4ab758bb079142e765c9a68"
+  },
+  {
+    "file": "31_sensor_duplicado_semilla_409.png",
+    "width": 1420,
+    "height": 1446,
+    "bytes": 438810,
+    "sha256": "61e682612f36e3c55449e1e54c267df3b3094897501a3a4e4b35057810bb53bb"
+  },
+  {
+    "file": "32_sensor_semilla_conservada_200.png",
+    "width": 1420,
+    "height": 1284,
+    "bytes": 445456,
+    "sha256": "38b1ca97df9447aecc2f6be63f1672c6c077c0de7c49009f198ef152c3967564"
+  },
+  {
+    "file": "33_sensor_exceso_capacidad_400.png",
+    "width": 1420,
+    "height": 1430,
+    "bytes": 421756,
+    "sha256": "c9bf6f9f2df0ec26054d0dd8d35ad2a6bde6122efb0036b892df31f222414f78"
+  },
+  {
+    "file": "34_sensor_cantidad_nula_400.png",
+    "width": 1420,
+    "height": 1430,
+    "bytes": 425147,
+    "sha256": "77d233e445c18d845a8c36b8f29fb87758555eb8678df3f76a12a600740cd624"
+  },
+  {
+    "file": "35_sensor_cantidad_omitida_400.png",
+    "width": 1420,
+    "height": 1416,
+    "bytes": 421022,
+    "sha256": "a3646ac2c9767fe6fb34c0a70b188f32ea509965460b45f2406f529e6853775e"
+  },
+  {
+    "file": "36_sensor_inexistente_404.png",
+    "width": 1420,
+    "height": 1445,
+    "bytes": 417935,
+    "sha256": "b10abdbe4957a36dccd0b6e7ad59c256f6d6537334151f5c7627ea309bc5ba68"
+  },
+  {
+    "file": "37_zona_vacia_200.png",
+    "width": 1420,
+    "height": 1029,
+    "bytes": 352612,
+    "sha256": "8518397f5143815478513cea4f032af6f257175f7641a6490a4fc21b74a6e439"
+  },
+  {
+    "file": "38_zona_sin_historial_200.png",
+    "width": 1420,
+    "height": 1029,
+    "bytes": 352798,
+    "sha256": "df7d5d4ac0b4c10b61cd5065ecc0fb7229e2883a015b76604430f64081dfd682"
+  },
+  {
+    "file": "39_zona_cp_invalido_400.png",
+    "width": 1420,
+    "height": 1033,
+    "bytes": 379343,
+    "sha256": "1961b5e858a09b022cd8b1a7410014761fa36d1275b39d33fa49a10e2635bb8a"
+  },
+  {
+    "file": "40_planta_inexistente_404.png",
+    "width": 1420,
+    "height": 1049,
+    "bytes": 394138,
+    "sha256": "e70f79bfe656e1e69acd7bd0ea1f6c5c0637bd9cbcb06a0f8f28b02cde7f83bb"
+  },
+  {
+    "file": "41_capacidad_fecha_fuera_400.png",
+    "width": 1420,
+    "height": 1034,
+    "bytes": 395703,
+    "sha256": "5307b1579062c29306945fd62975c712df047d68eb207ea8f6497e74477b02aa"
+  },
+  {
+    "file": "42_capacidad_fecha_pasada_400.png",
+    "width": 1420,
+    "height": 1034,
+    "bytes": 395513,
+    "sha256": "9096320e56091729a16cc30d7f097aece8901ee8474b82d31db73a665aca6229"
+  },
+  {
+    "file": "43_asignacion_lista_vacia_400.png",
+    "width": 1420,
+    "height": 1507,
+    "bytes": 431920,
+    "sha256": "8e50b4b7153b34628f1c3927b6fd3c555f7dcb5a5f384a5dfd433f6289be688a"
+  },
+  {
+    "file": "43_asignacion_lista_vacia_400_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406580,
+    "sha256": "39d19464998a0b2ae32899615368b87325c7ce3812e9ca6ff96be6717b0f4113"
+  },
+  {
+    "file": "43_asignacion_lista_vacia_400_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483371,
+    "sha256": "cc5383f2d7f44e8acf259d711c6dcd850b580dad3cc2a8804255b0f580d9754e"
+  },
+  {
+    "file": "44_asignacion_ids_repetidos_400.png",
+    "width": 1420,
+    "height": 1550,
+    "bytes": 440657,
+    "sha256": "b4a958fb634a206187e0ff17046b0097ee562a1fa2f700e11a3c3ebdb842edf3"
+  },
+  {
+    "file": "44_asignacion_ids_repetidos_400_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406598,
+    "sha256": "805e051658f98296da222683cd044da506262b8c0f84083d577432308eac2980"
+  },
+  {
+    "file": "44_asignacion_ids_repetidos_400_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483292,
+    "sha256": "63f294b7a2b9d1f451dbc0651f25191a03a8f5e3745872703e30aacd71fb2289"
+  },
+  {
+    "file": "45_asignacion_contenedor_inexistente_404.png",
+    "width": 1420,
+    "height": 1565,
+    "bytes": 446695,
+    "sha256": "96c2241b8457a8d2b648238a207d377d42a618d8e538313478f7bf202d105b26"
+  },
+  {
+    "file": "45_asignacion_contenedor_inexistente_404_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406569,
+    "sha256": "58cb04ce51da438f216c9f29fc7d8eb42356c1a349f958840b7d8c56d53e0389"
+  },
+  {
+    "file": "45_asignacion_contenedor_inexistente_404_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483527,
+    "sha256": "019492620403a874bb49ee3ee8847bf4e83399a67814a1de7678971a2b00d156"
+  },
+  {
+    "file": "46_asignacion_fecha_nula_400.png",
+    "width": 1420,
+    "height": 1536,
+    "bytes": 429628,
+    "sha256": "d9f4a93848a56d0af80a327e9111e679b0f749a9e499380dde6e9d6b4949fc5b"
+  },
+  {
+    "file": "46_asignacion_fecha_nula_400_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406565,
+    "sha256": "b7ebefec8b3a775b4b39684b9ed70bbf2bb265214c4458e7796355f467375b06"
+  },
+  {
+    "file": "46_asignacion_fecha_nula_400_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483514,
+    "sha256": "9b2d9cdd1ba09c87f4ef36034a8b00483af6737f103d583323543ba5db053517"
+  },
+  {
+    "file": "47_asignacion_fecha_omitida_400.png",
+    "width": 1420,
+    "height": 1521,
+    "bytes": 422413,
+    "sha256": "6c05a5a7e32bb57171dee1cbb8d24c2063dc524af586814ab94392b20f511f32"
+  },
+  {
+    "file": "47_asignacion_fecha_omitida_400_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406589,
+    "sha256": "dbadc3a5fd752a12305667ace3d2b1b644b020cd62b463b55cebef8dfbd8b63a"
+  },
+  {
+    "file": "47_asignacion_fecha_omitida_400_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483398,
+    "sha256": "b0e3983f1d82b49a3e7c6fd76deda3e7564e2a85d5451fb59a3bfa50d66735ab"
+  },
+  {
+    "file": "48_asignacion_planta_inexistente_404.png",
+    "width": 1420,
+    "height": 1551,
+    "bytes": 439813,
+    "sha256": "a80ef6944c302d285b2865db4853c84473a2dd6d2d6485e7442abd1bb664b149"
+  },
+  {
+    "file": "48_asignacion_planta_inexistente_404_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 406616,
+    "sha256": "0f11f26b218a770f8016ca946b71e717361dc3288ae45a38c172127a3ab821bc"
+  },
+  {
+    "file": "48_asignacion_planta_inexistente_404_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483435,
+    "sha256": "6e8df32e678b0ba25592ffc375c62a9e617c64567a24e154f14748fbf5785f38"
+  },
+  {
+    "file": "49_asignacion_capacidad_cero_409.png",
+    "width": 1420,
+    "height": 1551,
+    "bytes": 447841,
+    "sha256": "f480b3986f007a4db8637a03f5dce1f32f1c7fd0ce2f7dbbbddc7c21c1a4144c"
+  },
+  {
+    "file": "49_asignacion_capacidad_cero_409_capacidad_intacta.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 398484,
+    "sha256": "da1885a54510955620ebf543730492ecff7726d867a3e0f9b33b1224281e19d0"
+  },
+  {
+    "file": "49_asignacion_capacidad_cero_409_sin_asignacion_parcial.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483621,
+    "sha256": "8223c07844a5157a1f8198eb6613293020fda4d76de3b06000b8d4e97211856b"
+  },
+  {
+    "file": "50_token_alfabetico_bloqueado_swagger.png",
+    "width": 1420,
+    "height": 592,
+    "bytes": 183044,
+    "sha256": "54bd53f19e5ff73cbf7fe221a9857af08e2cc6c8acbcd33d0d06f370994956ce"
+  },
+  {
+    "file": "51_fecha_malformada_400.png",
+    "width": 1420,
+    "height": 1110,
+    "bytes": 426336,
+    "sha256": "f1ea1335f190946de38cbc6c49e3168a2b9a2e2c9351dd8e87c9045b378e14c0"
+  },
+  {
+    "file": "52_token_fuera_rango_400.png",
+    "width": 1420,
+    "height": 960,
+    "bytes": 300056,
+    "sha256": "f0301f44e708b07d4724bd84c37d9ea6106ff68c0eabcdfe7c04fb55872b2637"
+  },
+  {
+    "file": "53_sensor_enum_invalido_400.png",
+    "width": 1420,
+    "height": 1430,
+    "bytes": 420557,
+    "sha256": "b0fb94c4fd25e65dbaccff7c5b76d2678c03d243357f2234f6a2e14334c15945"
+  },
+  {
+    "file": "54_sensor_nivel_nulo_400.png",
+    "width": 1420,
+    "height": 1430,
+    "bytes": 423370,
+    "sha256": "0f694333656cb2c46a095097000724c5c8cdce7f88251b2d7797ccb0c319bcbf"
+  },
+  {
+    "file": "55_capacidad_limite_200.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 404416,
+    "sha256": "6bbbbb02bc7074e3d890a8b297c96639520ecb53df6277191be4b16846934625"
+  },
+  {
+    "file": "56_asignaciones_otra_planta_vacias_200.png",
+    "width": 1420,
+    "height": 1030,
+    "bytes": 386167,
+    "sha256": "910a2235cdaac96726a21cacf02b8ee39b6db0d2d0c3c3ba3bd83beb83c15ddc"
+  },
+  {
+    "file": "57_asignaciones_estado_final_200.png",
+    "width": 1420,
+    "height": 1229,
+    "bytes": 483193,
+    "sha256": "2a1a7b372cb8c6cd1ff17b3f6b9dad94aab61c7cec9d6e78ef9cbc518ea7943a"
+  },
+  {
+    "file": "58_final_login_200.png",
+    "width": 1420,
+    "height": 1327,
+    "bytes": 287347,
+    "sha256": "ce60175cf46c26d093ade8c6f195e8d3b50cb74b28c8dbc126e0236409085e5e"
+  },
+  {
+    "file": "59_final_listado_semilla_200.png",
+    "width": 1420,
+    "height": 1285,
+    "bytes": 447008,
+    "sha256": "617a38a0cfb55eeb2b83e7418d8aa737daff7a67be37cc8209d21350ed665be0"
+  },
+  {
+    "file": "60_final_historial_200.png",
+    "width": 1420,
+    "height": 1437,
+    "bytes": 511821,
+    "sha256": "6a60920a9c410f70744699e5ac3f2950db754beb76134f0655babc2fdf0040d6"
+  },
+  {
+    "file": "61_final_alta_nullable_201.png",
+    "width": 1420,
+    "height": 1542,
+    "bytes": 418801,
+    "sha256": "318296d1415064f71efdfd5429feeff55fcecddd077c7442ca3a51589a523feb"
+  },
+  {
+    "file": "62_final_sensor_201.png",
+    "width": 1420,
+    "height": 1439,
+    "bytes": 414249,
+    "sha256": "2324accf1e26cbee33ccfc5497708ac4371c2d53081c231af3a3f2b8c237d1c0"
+  },
+  {
+    "file": "63_final_zona_200.png",
+    "width": 1420,
+    "height": 1358,
+    "bytes": 531169,
+    "sha256": "7cb603d5e366ab76d8e6c6d76e4286831d49052ccc471a39d27f4524558c8077"
+  },
+  {
+    "file": "64_final_plantas_200.png",
+    "width": 1420,
+    "height": 960,
+    "bytes": 294507,
+    "sha256": "70ed5b5cf771ab782f6f9bb6457dde79d8887a52f9e5abec66bdf0d2ddce17b0"
+  },
+  {
+    "file": "65_final_capacidad_200.png",
+    "width": 1420,
+    "height": 1085,
+    "bytes": 401853,
+    "sha256": "7b8c8410a53527443135d4d56654d31ec4075b4e5d24caa50ea832bf17f568ac"
+  },
+  {
+    "file": "66_final_asignacion_201.png",
+    "width": 1420,
+    "height": 1735,
+    "bytes": 511862,
+    "sha256": "ca1b67b7d35081a8b7017ec12fa768a23e9749257d3e61dc4c8d5ad396c11f15"
+  },
+  {
+    "file": "67_final_consulta_asignacion_200.png",
+    "width": 1420,
+    "height": 1232,
+    "bytes": 492762,
+    "sha256": "6d78be7406d68bd06ab1784c19c666dbdd560b9c238e2c3a4ce1d5794070f28c"
+  },
+  {
+    "file": "68_final_logout_204.png",
+    "width": 1420,
+    "height": 830,
+    "bytes": 229720,
+    "sha256": "deffbf894f5d01fccd86d9745aa4837cd1822486e145d4550a2462bb5f6e43d4"
+  },
+  {
+    "file": "69_final_token_invalidado_401.png",
+    "width": 1420,
+    "height": 975,
+    "bytes": 297720,
+    "sha256": "72668a945fd94cc94cac3ad72a5bb625252b601da1fa11ebcfe65dcfe1b5bc8e"
+  }
+]

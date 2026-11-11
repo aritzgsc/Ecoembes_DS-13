@@ -1,0 +1,129 @@
+{
+  "date": "2026-11-11T04:54:04.653Z",
+  "commit": "441f10d4bb62be3c72806f0a44184fe69a65587f",
+  "httpStatus": 200,
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/api/plants/{plantId}/assignments",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/plants/{plantId}/assignments",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/containers",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/containers",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/containers/{containerId}/readings",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/containers/{containerId}/readings",
+      "summary": true,
+      "tokenRequired": false,
+      "errorResponses": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "summary": true,
+      "tokenRequired": false,
+      "errorResponses": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/zones/{postalCode}/containers",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/plants",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/plants/{plantId}/capacity",
+      "summary": true,
+      "tokenRequired": true,
+      "errorResponses": true
+    }
+  ],
+  "nullReadingProperties": [
+    {
+      "property": "packageCount",
+      "schema": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "format": "int32",
+        "description": "Envases de la lectura; null si no hay mediciones."
+      }
+    },
+    {
+      "property": "fillLevel",
+      "schema": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Nivel GREEN, ORANGE o RED; null si no hay mediciones."
+      }
+    },
+    {
+      "property": "estimatedTons",
+      "schema": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "format": "double",
+        "description": "Toneladas: envases × 0,03 / 1000; null sin mediciones."
+      }
+    },
+    {
+      "property": "readingDate",
+      "schema": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date",
+        "description": "Fecha de la lectura; null si no hay mediciones."
+      }
+    }
+  ]
+}

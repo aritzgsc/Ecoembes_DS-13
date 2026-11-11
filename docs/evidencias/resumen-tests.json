@@ -1,0 +1,82 @@
+[
+  {
+    "name": "es.deusto.sd.ecoembes.domain.AssignmentDomainTest",
+    "tests": "5",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:33.225Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.dto.DtoAssemblerTest",
+    "tests": "4",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:33.237Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.EcoembesApplicationTests",
+    "tests": "1",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:28.827Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.exception.GlobalExceptionHandlerTest",
+    "tests": "5",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:33.254Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.facade.EcoembesFacadeHttpTest",
+    "tests": "5",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:33.266Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.facade.EcoembesFacadeTest",
+    "tests": "13",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:35.158Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.service.AssignmentAppServiceTest",
+    "tests": "8",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:38.760Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.service.AuthAppServiceTest",
+    "tests": "6",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:38.774Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.service.ContainerAppServiceTest",
+    "tests": "8",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:43.170Z"
+  },
+  {
+    "name": "es.deusto.sd.ecoembes.service.PlantAppServiceTest",
+    "tests": "6",
+    "skipped": "0",
+    "failures": "0",
+    "errors": "0",
+    "timestamp": "2026-11-11T04:47:43.182Z"
+  }
+]

@@ -1,0 +1,26 @@
+Java:
+openjdk version "21.0.12.1" 2026-08-18 LTS
+OpenJDK Runtime Environment Microsoft-14941484 (build 21.0.12.1+1-LTS)
+OpenJDK 64-Bit Server VM Microsoft-14941484 (build 21.0.12.1+1-LTS, mixed mode, sharing)
+
+Gradle:
+
+------------------------------------------------------------
+Gradle 9.8.2
+------------------------------------------------------------
+
+Build time:    2026-10-19 16:29:26 UTC
+Revision:      8de7bcf76e785507ad92f0741ab9235a430c95e6
+
+Kotlin:        2.4.10
+Groovy:        4.0.33
+Ant:           Apache Ant(TM) version 1.10.17 compiled on April 6 2026
+Launcher JVM:  21.0.12.1 (Microsoft 21.0.12.1+1-LTS)
+Daemon JVM:    C:\Program Files\Microsoft\jdk-21.0.12.101-hotspot (no Daemon JVM specified, using current Java home)
+OS:            Windows 10 10.0 amd64
+
+
+Servidor final PID 19104:
+java.version=21.0.12.1
+user.dir=C\:\\Users\\aritz.g.s\\3_Informatica\\Diseno_de_Software\\Proyectos\\Ecoembes\\AplicacionEcoembes\\ecoembes
+user.timezone=Europe/Madrid

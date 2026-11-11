@@ -1,0 +1,1091 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API Servidor Ecoembes",
+    "description": "Prototipo 1: datos semilla y sesiones en memoria, restaurados al reiniciar; plantas simuladas sin HTTP/socket real. Personal: token numérico activo en query, excepto login. Sensor: POST de lecturas sin token. Fechas yyyy-MM-dd según LocalDate.now() del servidor. Errores JSON con campo message. Peso por envase: 0,03 kg.",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Ecoembes",
+      "description": "Operaciones del Servidor Ecoembes"
+    }
+  ],
+  "paths": {
+    "/api/plants/{plantId}/assignments": {
+      "get": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Consultar asignaciones de una planta",
+        "operationId": "getAssignments",
+        "parameters": [
+          {
+            "name": "plantId",
+            "in": "path",
+            "description": "Identificador de planta simulada: PLASSB o CONTSOCKET.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PLASSB"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Filtro opcional por fecha, yyyy-MM-dd; sin filtro devuelve todas las asignaciones de la planta.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asignaciones recuperadas",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssignmentDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fecha mal formada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Planta inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Asignar contenedores a una planta",
+        "description": "Asignación todo-o-nada, con notificación simulada.",
+        "operationId": "assignContainers",
+        "parameters": [
+          {
+            "name": "plantId",
+            "in": "path",
+            "description": "Identificador de planta simulada: PLASSB o CONTSOCKET.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PLASSB"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignmentRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Asignación registrada",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fecha o selección inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Planta o contenedor inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Contenedor ya asignado ese día, sin lecturas o capacidad insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/containers": {
+      "get": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Consultar contenedores",
+        "description": "Devuelve la información actual de los contenedores.",
+        "operationId": "getContainers",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado recuperado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContainerDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Token mal formado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Crear contenedor",
+        "description": "Da de alta un contenedor sin lecturas iniciales.",
+        "operationId": "createContainer",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContainerCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Contenedor creado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Identificador duplicado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/containers/{containerId}/readings": {
+      "get": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Consultar historial de un contenedor",
+        "operationId": "getContainerReadings",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "description": "Identificador del contenedor.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "CONT-001"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Inicio inclusivo del intervalo, yyyy-MM-dd.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Fin inclusivo; debe ser igual o posterior a from, yyyy-MM-dd.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historial recuperado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContainerReadingDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fechas inválidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contenedor inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Registrar lectura del sensor",
+        "description": "Sensor simulado sin token. Fecha del servidor: hoy. Primera lectura: 201; duplicada: 409 sin sobrescribir. Cantidad entre 0 y capacidad.",
+        "operationId": "registerReading",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "description": "Identificador del contenedor.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "CONT-001"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SensorReadingDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Lectura registrada",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerReadingDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Lectura inválida, nula o ilegible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contenedor inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Ya existe lectura para el día actual",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Cerrar sesión",
+        "description": "Invalida el token recibido.",
+        "operationId": "logout",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Sesión cerrada"
+          },
+          "400": {
+            "description": "Token ausente o mal formado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Iniciar sesión",
+        "description": "Autentica al personal mediante email y contraseña.",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sesión iniciada",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos de entrada inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciales incorrectas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/zones/{postalCode}/containers": {
+      "get": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Consultar contenedores por zona y fecha",
+        "operationId": "getContainersByZone",
+        "parameters": [
+          {
+            "name": "postalCode",
+            "in": "path",
+            "description": "Código postal de cinco dígitos.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 48009
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Fecha de consulta yyyy-MM-dd; utiliza la última lectura registrada hasta esa fecha.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Consulta realizada",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContainerDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Zona o fecha inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/plants": {
+      "get": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Consultar plantas de reciclaje",
+        "operationId": "getPlants",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Plantas recuperadas",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlantDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Token mal formado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/plants/{plantId}/capacity": {
+      "get": {
+        "tags": [
+          "Ecoembes"
+        ],
+        "summary": "Consultar capacidad de una planta",
+        "operationId": "getPlantCapacity",
+        "parameters": [
+          {
+            "name": "plantId",
+            "in": "path",
+            "description": "Identificador de planta simulada: PLASSB o CONTSOCKET.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PLASSB"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Fecha yyyy-MM-dd; capacidad disponible solo entre hoy y hoy+9.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token numérico activo obtenido mediante login; se invalida con logout.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Capacidad recuperada",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantCapacityDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fecha inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token no activo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Planta inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AssignmentRequestDTO": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha obligatoria yyyy-MM-dd entre hoy y hoy+9; sustituir por la fecha real del servidor."
+          },
+          "containerIds": {
+            "type": "array",
+            "description": "Selección no vacía, sin identificadores repetidos. Todos deben existir, tener lectura y no estar asignados ese día.",
+            "example": [
+              "CONT-003",
+              "CONT-006",
+              "CONT-009"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "containerIds",
+          "date"
+        ]
+      },
+      "ErrorDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Motivo legible del rechazo.",
+            "example": "Ya existe una lectura para el día actual."
+          }
+        }
+      },
+      "AssignmentDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "plantId": {
+            "type": "string"
+          },
+          "plantName": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "containerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "containerCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPackages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalTons": {
+            "type": "number",
+            "format": "double"
+          },
+          "assignedBy": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ContainerCreateDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único del contenedor.",
+            "example": "CONT-011"
+          },
+          "address": {
+            "type": "string",
+            "example": "Calle de Prueba 11, Bilbao"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Cinco dígitos.",
+            "example": "48009",
+            "pattern": "[0-9]{5}"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Capacidad máxima en envases, mayor que cero.",
+            "example": 1000,
+            "minimum": 1
+          }
+        },
+        "required": [
+          "address",
+          "capacity",
+          "id",
+          "postalCode"
+        ]
+      },
+      "ContainerDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "packageCount": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int32",
+            "description": "Envases de la lectura; null si no hay mediciones."
+          },
+          "fillLevel": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Nivel GREEN, ORANGE o RED; null si no hay mediciones."
+          },
+          "estimatedTons": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double",
+            "description": "Toneladas: envases × 0,03 / 1000; null sin mediciones."
+          },
+          "readingDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date",
+            "description": "Fecha de la lectura; null si no hay mediciones."
+          }
+        }
+      },
+      "SensorReadingDTO": {
+        "type": "object",
+        "properties": {
+          "packageCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Cantidad obligatoria entre cero y la capacidad del contenedor.",
+            "example": 125,
+            "minimum": 0
+          },
+          "fillLevel": {
+            "type": "string",
+            "description": "Nivel informado por el sensor; no se recalcula.",
+            "enum": [
+              "GREEN",
+              "ORANGE",
+              "RED"
+            ],
+            "example": "GREEN"
+          }
+        },
+        "required": [
+          "fillLevel",
+          "packageCount"
+        ]
+      },
+      "ContainerReadingDTO": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "packageCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fillLevel": {
+            "type": "string",
+            "enum": [
+              "GREEN",
+              "ORANGE",
+              "RED"
+            ]
+          }
+        }
+      },
+      "LoginRequestDTO": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Correo del empleado de demostración.",
+            "example": "ana.garcia@ecoembes.es"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "Contraseña del empleado; no conservar en evidencias.",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "LoginResponseDTO": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PlantDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "PlantCapacityDTO": {
+        "type": "object",
+        "properties": {
+          "plantId": {
+            "type": "string"
+          },
+          "plantName": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "totalTons": {
+            "type": "number",
+            "format": "double"
+          },
+          "assignedTons": {
+            "type": "number",
+            "format": "double"
+          },
+          "availableTons": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    }
+  }
+}

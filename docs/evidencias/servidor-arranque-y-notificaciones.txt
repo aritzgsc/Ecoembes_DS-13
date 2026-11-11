@@ -1,0 +1,16 @@
+P10 — extractos del proceso Gradle bootRun, zona Europe/Madrid.
+No son capturas de Swagger.
+
+Sesión A–I, commit 60b32e3, PID 21596:
+Starting EcoembesApplication using Java 21.0.12.1 with PID 21596 (C:\Users\aritz.g.s\3_Informatica\Diseno_de_Software\Proyectos\Ecoembes\AplicacionEcoembes\ecoembes\build\classes\java\main started by aritz.g.s in C:\Users\aritz.g.s\3_Informatica\Diseno_de_Software\Proyectos\Ecoembes\AplicacionEcoembes\ecoembes)
+2026-11-11T05:36:02.476+01:00  INFO 21596 --- [ecoembes] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-11-11T05:36:02.483+01:00  INFO 21596 --- [ecoembes] [           main] e.d.sd.ecoembes.EcoembesApplication      : Started EcoembesApplication in 2.471 seconds (process running for 2.845)
+[PlasSB - simulado] 2026-11-11: 3 contenedores, 4950 envases
+
+Sesión S01–S12, commit 441f10d, PID 19104:
+Starting EcoembesApplication using Java 21.0.12.1 with PID 19104 (C:\Users\aritz.g.s\3_Informatica\Diseno_de_Software\Proyectos\Ecoembes\AplicacionEcoembes\ecoembes\build\classes\java\main started by aritz.g.s in C:\Users\aritz.g.s\3_Informatica\Diseno_de_Software\Proyectos\Ecoembes\AplicacionEcoembes\ecoembes)
+2026-11-11T05:47:56.839+01:00  INFO 19104 --- [ecoembes] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-11-11T05:47:56.844+01:00  INFO 19104 --- [ecoembes] [           main] e.d.sd.ecoembes.EcoembesApplication      : Started EcoembesApplication in 2.289 seconds (process running for 2.693)
+[PlasSB - simulado] 2026-11-11: 3 contenedores, 4950 envases
+
+En cada sesión se observó exactamente una notificación PlasSB y cero ContSocket.
