@@ -34,6 +34,10 @@ import es.deusto.sd.ecoembes.service.AuthAppService;
 import es.deusto.sd.ecoembes.service.ContainerAppService;
 import es.deusto.sd.ecoembes.service.PlantAppService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import es.deusto.sd.ecoembes.dto.ErrorDTO;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -62,8 +66,10 @@ public class EcoembesFacade {
     @Operation(summary = "Iniciar sesión", description = "Autentica al personal mediante email y contraseña.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Sesión iniciada"),
-            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos"),
-            @ApiResponse(responseCode = "401", description = "Credenciales incorrectas")
+            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Credenciales incorrectas",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request) {
         long token = authAppService.login(request.email(), request.password());
@@ -75,10 +81,13 @@ public class EcoembesFacade {
     @Operation(summary = "Cerrar sesión", description = "Invalida el token recibido.")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Sesión cerrada"),
-            @ApiResponse(responseCode = "400", description = "Token ausente o mal formado"),
-            @ApiResponse(responseCode = "401", description = "Token no activo")
+            @ApiResponse(responseCode = "400", description = "Token ausente o mal formado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
-    public ResponseEntity<Void> logout(@RequestParam long token) {
+    public ResponseEntity<Void> logout(@Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
+            @RequestParam long token) {
         authAppService.logout(token);
         return ResponseEntity.noContent().build();
     }
@@ -88,11 +97,15 @@ public class EcoembesFacade {
     @Operation(summary = "Crear contenedor", description = "Da de alta un contenedor sin lecturas iniciales.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Contenedor creado"),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos"),
-            @ApiResponse(responseCode = "401", description = "Token no activo"),
-            @ApiResponse(responseCode = "409", description = "Identificador duplicado")
+            @ApiResponse(responseCode = "400", description = "Datos inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "409", description = "Identificador duplicado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<ContainerDTO> createContainer(@RequestBody ContainerCreateDTO request,
+            @Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
             @RequestParam long token) {
         authAppService.validateToken(token);
         Container container = containerAppService.createContainer(
@@ -106,10 +119,13 @@ public class EcoembesFacade {
     @Operation(summary = "Consultar contenedores", description = "Devuelve la información actual de los contenedores.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Listado recuperado"),
-            @ApiResponse(responseCode = "400", description = "Token mal formado"),
-            @ApiResponse(responseCode = "401", description = "Token no activo")
+            @ApiResponse(responseCode = "400", description = "Token mal formado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
-    public ResponseEntity<List<ContainerDTO>> getContainers(@RequestParam long token) {
+    public ResponseEntity<List<ContainerDTO>> getContainers(@Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
+            @RequestParam long token) {
         authAppService.validateToken(token);
         List<ContainerDTO> result = containerAppService.getAllContainers().stream()
                 .map(container -> DtoAssembler.toContainerDTO(container, container.getLatestReading()))
@@ -122,14 +138,21 @@ public class EcoembesFacade {
     @Operation(summary = "Consultar historial de un contenedor")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Historial recuperado"),
-            @ApiResponse(responseCode = "400", description = "Fechas inválidas"),
-            @ApiResponse(responseCode = "401", description = "Token no activo"),
-            @ApiResponse(responseCode = "404", description = "Contenedor inexistente")
+            @ApiResponse(responseCode = "400", description = "Fechas inválidas",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Contenedor inexistente",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<List<ContainerReadingDTO>> getContainerReadings(
+            @Parameter(description = "Identificador del contenedor.", example = "CONT-001")
             @PathVariable String containerId,
+            @Parameter(description = "Inicio inclusivo del intervalo, yyyy-MM-dd.")
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @Parameter(description = "Fin inclusivo; debe ser igual o posterior a from, yyyy-MM-dd.")
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
             @RequestParam long token) {
         authAppService.validateToken(token);
         List<ContainerReadingDTO> result = containerAppService.getReadings(containerId, from, to)
@@ -142,12 +165,17 @@ public class EcoembesFacade {
     @Operation(summary = "Consultar contenedores por zona y fecha")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Consulta realizada"),
-            @ApiResponse(responseCode = "400", description = "Zona o fecha inválida"),
-            @ApiResponse(responseCode = "401", description = "Token no activo")
+            @ApiResponse(responseCode = "400", description = "Zona o fecha inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<List<ContainerDTO>> getContainersByZone(
+            @Parameter(description = "Código postal de cinco dígitos.", example = "48009")
             @PathVariable String postalCode,
+            @Parameter(description = "Fecha de consulta yyyy-MM-dd; utiliza la última lectura registrada hasta esa fecha.")
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
             @RequestParam long token) {
         authAppService.validateToken(token);
         List<ContainerDTO> result = containerAppService.getContainersByZone(postalCode, date)
@@ -159,14 +187,18 @@ public class EcoembesFacade {
 
     /** 7. El sensor no usa token; un duplicado del día produce 409 sin sobrescritura. */
     @PostMapping("/containers/{containerId}/readings")
-    @Operation(summary = "Registrar lectura del sensor", description = "Primera lectura del día: 201; repetida: 409.")
+    @Operation(summary = "Registrar lectura del sensor", description = "Sensor simulado sin token. Fecha del servidor: hoy. Primera lectura: 201; duplicada: 409 sin sobrescribir. Cantidad entre 0 y capacidad.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Lectura registrada"),
-            @ApiResponse(responseCode = "400", description = "Lectura inválida, nula o ilegible"),
-            @ApiResponse(responseCode = "404", description = "Contenedor inexistente"),
-            @ApiResponse(responseCode = "409", description = "Ya existe lectura para el día actual")
+            @ApiResponse(responseCode = "400", description = "Lectura inválida, nula o ilegible",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Contenedor inexistente",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "409", description = "Ya existe lectura para el día actual",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<ContainerReadingDTO> registerReading(
+            @Parameter(description = "Identificador del contenedor.", example = "CONT-001")
             @PathVariable String containerId,
             @RequestBody SensorReadingDTO request) {
         // Antes de convertir Integer a int, distinguir explícitamente null de 0.
@@ -183,10 +215,13 @@ public class EcoembesFacade {
     @Operation(summary = "Consultar plantas de reciclaje")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Plantas recuperadas"),
-            @ApiResponse(responseCode = "400", description = "Token mal formado"),
-            @ApiResponse(responseCode = "401", description = "Token no activo")
+            @ApiResponse(responseCode = "400", description = "Token mal formado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
-    public ResponseEntity<List<PlantDTO>> getPlants(@RequestParam long token) {
+    public ResponseEntity<List<PlantDTO>> getPlants(@Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
+            @RequestParam long token) {
         authAppService.validateToken(token);
         return ResponseEntity.ok(plantAppService.getPlants().stream()
                 .map(DtoAssembler::toPlantDTO).toList());
@@ -197,13 +232,19 @@ public class EcoembesFacade {
     @Operation(summary = "Consultar capacidad de una planta")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Capacidad recuperada"),
-            @ApiResponse(responseCode = "400", description = "Fecha inválida"),
-            @ApiResponse(responseCode = "401", description = "Token no activo"),
-            @ApiResponse(responseCode = "404", description = "Planta inexistente")
+            @ApiResponse(responseCode = "400", description = "Fecha inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Planta inexistente",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<PlantCapacityDTO> getPlantCapacity(
+            @Parameter(description = "Identificador de planta simulada: PLASSB o CONTSOCKET.", example = "PLASSB")
             @PathVariable String plantId,
+            @Parameter(description = "Fecha yyyy-MM-dd; capacidad disponible solo entre hoy y hoy+9.")
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
             @RequestParam long token) {
         authAppService.validateToken(token);
         RecyclingPlant plant = plantAppService.getPlant(plantId);
@@ -217,14 +258,20 @@ public class EcoembesFacade {
     @Operation(summary = "Asignar contenedores a una planta", description = "Asignación todo-o-nada, con notificación simulada.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Asignación registrada"),
-            @ApiResponse(responseCode = "400", description = "Fecha o selección inválida"),
-            @ApiResponse(responseCode = "401", description = "Token no activo"),
-            @ApiResponse(responseCode = "404", description = "Planta o contenedor inexistente"),
-            @ApiResponse(responseCode = "409", description = "Conflicto de asignación o capacidad")
+            @ApiResponse(responseCode = "400", description = "Fecha o selección inválida",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Planta o contenedor inexistente",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "409", description = "Contenedor ya asignado ese día, sin lecturas o capacidad insuficiente",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<AssignmentDTO> assignContainers(
+            @Parameter(description = "Identificador de planta simulada: PLASSB o CONTSOCKET.", example = "PLASSB")
             @PathVariable String plantId,
             @RequestBody AssignmentRequestDTO request,
+            @Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
             @RequestParam long token) {
         Employee by = authAppService.validateToken(token);
         if (request.date() == null) {
@@ -239,14 +286,20 @@ public class EcoembesFacade {
     @Operation(summary = "Consultar asignaciones de una planta")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Asignaciones recuperadas"),
-            @ApiResponse(responseCode = "400", description = "Fecha mal formada"),
-            @ApiResponse(responseCode = "401", description = "Token no activo"),
-            @ApiResponse(responseCode = "404", description = "Planta inexistente")
+            @ApiResponse(responseCode = "400", description = "Fecha mal formada",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "401", description = "Token no activo",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Planta inexistente",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     public ResponseEntity<List<AssignmentDTO>> getAssignments(
+            @Parameter(description = "Identificador de planta simulada: PLASSB o CONTSOCKET.", example = "PLASSB")
             @PathVariable String plantId,
+            @Parameter(description = "Filtro opcional por fecha, yyyy-MM-dd; sin filtro devuelve todas las asignaciones de la planta.")
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @Parameter(description = "Token numérico activo obtenido mediante login; se invalida con logout.")
             @RequestParam long token) {
         authAppService.validateToken(token);
         return ResponseEntity.ok(assignmentAppService.getAssignments(plantId, date).stream()
