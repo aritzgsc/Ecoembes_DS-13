@@ -154,16 +154,16 @@ class EcoembesFacadeHttpTest {
     }
 
     @Test
-    void lecturasNulasYAsignacionConFechaNulaSon400() throws Exception {
-        // El campo packageCount ausente o null prevalece sobre un contenedor desconocido.
+    void lecturasNulasRespetanPrioridadYAsignacionConFechaNulaEs400() throws Exception {
+        // Un contenedor inexistente devuelve 404 antes de validar los campos de la lectura.
         mvc.perform(post("/api/containers/NO-EXISTE/readings")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"fillLevel\":\"GREEN\"}"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
         mvc.perform(post("/api/containers/NO-EXISTE/readings")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"packageCount\":null,\"fillLevel\":\"GREEN\"}"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
         mvc.perform(post("/api/containers/CONT-001/readings")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"packageCount\":0,\"fillLevel\":null}"))
