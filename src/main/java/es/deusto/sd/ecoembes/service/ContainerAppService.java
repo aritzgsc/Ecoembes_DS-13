@@ -19,6 +19,7 @@ import es.deusto.sd.ecoembes.exception.NotFoundException;
 @Service
 public class ContainerAppService {
 
+    // El monitor del servicio protege el mapa y la unicidad de las altas.
     private final Map<String, Container> containers = new LinkedHashMap<>();
 
     public ContainerAppService() {
@@ -36,12 +37,12 @@ public class ContainerAppService {
     }
 
     /** Devuelve los contenedores en el orden en el que se registraron. */
-    public List<Container> getAllContainers() {
+    public synchronized List<Container> getAllContainers() {
         return new ArrayList<>(containers.values());
     }
 
     /** Da de alta un contenedor vacío, sin inventar una primera lectura. */
-    public Container createContainer(String id, String address, String postalCode, int capacity) {
+    public synchronized Container createContainer(String id, String address, String postalCode, int capacity) {
         if (id == null || id.isBlank() || address == null || address.isBlank()
                 || !validPostalCode(postalCode) || capacity <= 0) {
             throw new BadRequestException("Identificador, dirección, código postal o capacidad incorrectos.");
@@ -55,7 +56,7 @@ public class ContainerAppService {
     }
 
     /** Busca un contenedor por id o lanza 404 si no existe. */
-    public Container getContainer(String id) {
+    public synchronized Container getContainer(String id) {
         Container container = containers.get(id);
         if (container == null) {
             throw new NotFoundException("No existe el contenedor " + id + ".");
@@ -64,18 +65,26 @@ public class ContainerAppService {
     }
 
     /** Registra la primera lectura de hoy; jamás sobrescribe una existente. */
-    public ContainerReading registerReading(String containerId, int packageCount, FillLevel level) {
+    public synchronized ContainerReading registerReading(
+            String containerId, Integer packageCount, FillLevel level) {
+
         Container container = getContainer(containerId); // 404 antes de validar contenido.
-        if (packageCount < 0 || packageCount > container.getCapacity() || level == null) {
-            throw new BadRequestException("Cantidad de envases o nivel de llenado incorrecto.");
+
+        if (packageCount == null || packageCount < 0
+                || packageCount > container.getCapacity() || level == null) {
+            throw new BadRequestException(
+                    "Cantidad de envases o nivel de llenado incorrecto.");
         }
-        ContainerReading reading = new ContainerReading(LocalDate.now(), packageCount, level);
+
+        ContainerReading reading = new ContainerReading(
+                LocalDate.now(), packageCount, level);
+
         container.addReading(reading); // 409 si ya hay una medición para hoy.
         return reading;
     }
 
     /** Consulta el historial por intervalo inclusivo y ordenado por fecha. */
-    public List<ContainerReading> getReadings(String containerId, LocalDate from, LocalDate to) {
+    public synchronized List<ContainerReading> getReadings(String containerId, LocalDate from, LocalDate to) {
         Container container = getContainer(containerId); // 404 tiene prioridad.
         if (from == null || to == null || from.isAfter(to)) {
             throw new BadRequestException("El intervalo de fechas no es válido.");
@@ -84,7 +93,7 @@ public class ContainerAppService {
     }
 
     /** Devuelve los contenedores de la zona con alguna medición hasta date. */
-    public List<Container> getContainersByZone(String postalCode, LocalDate date) {
+    public synchronized List<Container> getContainersByZone(String postalCode, LocalDate date) {
         if (!validPostalCode(postalCode) || date == null) {
             throw new BadRequestException("Código postal o fecha incorrectos.");
         }

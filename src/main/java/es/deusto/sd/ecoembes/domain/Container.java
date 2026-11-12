@@ -41,12 +41,12 @@ public class Container {
         return capacity;
     }
 
-    public List<ContainerReading> getReadings() {
+    public synchronized List<ContainerReading> getReadings() {
         return List.copyOf(readings);
     }
 
-    /** Añade una lectura sin sobrescribir otra de la misma fecha. */
-    public void addReading(ContainerReading reading) {
+    /** Añade una lectura atómicamente, sin sobrescribir otra de la misma fecha. */
+    public synchronized void addReading(ContainerReading reading) {
         boolean exists = readings.stream().anyMatch(r -> r.getDate().equals(reading.getDate()));
         if (exists) {
             throw new ConflictException("Ya existe una lectura para el contenedor " + id
@@ -57,7 +57,7 @@ public class Container {
     }
 
     /** Devuelve la lectura más reciente, si existe alguna. */
-    public Optional<ContainerReading> getLatestReading() {
+    public synchronized Optional<ContainerReading> getLatestReading() {
         if (readings.isEmpty()) {
             return Optional.empty();
         }
@@ -65,7 +65,7 @@ public class Container {
     }
 
     /** Busca la lectura más reciente anterior o igual a la fecha indicada. */
-    public Optional<ContainerReading> getReadingAt(LocalDate date) {
+    public synchronized Optional<ContainerReading> getReadingAt(LocalDate date) {
         for (int i = readings.size() - 1; i >= 0; i--) {
             ContainerReading reading = readings.get(i);
             if (!reading.getDate().isAfter(date)) {
@@ -76,7 +76,7 @@ public class Container {
     }
 
     /** Consulta el historial entre dos fechas, incluidas ambas. */
-    public List<ContainerReading> getReadingsBetween(LocalDate from, LocalDate to) {
+    public synchronized List<ContainerReading> getReadingsBetween(LocalDate from, LocalDate to) {
         return readings.stream()
                 .filter(r -> !r.getDate().isBefore(from) && !r.getDate().isAfter(to))
                 .toList();

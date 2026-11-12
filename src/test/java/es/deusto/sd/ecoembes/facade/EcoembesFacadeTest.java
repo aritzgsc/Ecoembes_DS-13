@@ -133,15 +133,23 @@ class EcoembesFacadeTest {
                 .filter(c -> "CONT-011".equals(c.id())).findFirst().orElseThrow().packageCount().intValue());
     }
 
-    @Test
-    void sensorNuloDevuelve400AntesDeConsultarElContenedor() {
-        assertThrows(BadRequestException.class,
-                () -> facade.registerReading("NO-EXISTE", new SensorReadingDTO(null, FillLevel.GREEN)));
-        assertThrows(BadRequestException.class,
-                () -> facade.registerReading("CONT-001", new SensorReadingDTO(0, null)));
+        @Test
+        void sensorValidaPrimeroExistenciaYDespuesDatos() {
+        // 404: el contenedor no existe, aunque la lectura sea inválida.
         assertThrows(NotFoundException.class,
-                () -> facade.registerReading("NO-EXISTE", new SensorReadingDTO(2, FillLevel.GREEN)));
-    }
+                () -> facade.registerReading("NO-EXISTE",
+                        new SensorReadingDTO(null, FillLevel.GREEN)));
+
+        // 400: el contenedor existe, pero el nivel de llenado es nulo.
+        assertThrows(BadRequestException.class,
+                () -> facade.registerReading("CONT-001",
+                        new SensorReadingDTO(0, null)));
+
+        // 404: contenedor inexistente con una lectura válida.
+        assertThrows(NotFoundException.class,
+                () -> facade.registerReading("NO-EXISTE",
+                        new SensorReadingDTO(2, FillLevel.GREEN)));
+        }
 
     @Test
     void getPlantsDevuelveDosPlantasConSusIdentificadores() {
