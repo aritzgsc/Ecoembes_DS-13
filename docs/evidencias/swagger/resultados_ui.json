@@ -1,0 +1,305 @@
+{
+  "date": "2026-11-11",
+  "initialLogin": {
+    "file": "01_login_200.png",
+    "status": 200
+  },
+  "results": [
+    {
+      "file": "02_login_401.png",
+      "id": "login",
+      "expected": 401,
+      "obtained": 401,
+      "state": "PASS",
+      "body": "Error: response status is 401\n\nResponse body\nDownload\n{\n  \"message\": \"Correo o contraseña incorrectos.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:25:40 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "03_logout_204.png",
+      "id": "logout",
+      "expected": 204,
+      "obtained": 204,
+      "state": "PASS",
+      "body": "Response headers\n connection: keep-alive \n date: Wed,11 Nov 2026 15:26:22 GMT \n keep-alive: timeout=60 "
+    },
+    {
+      "file": "04_token_invalidado_401.png",
+      "id": "getContainers",
+      "expected": 401,
+      "obtained": 401,
+      "state": "PASS",
+      "body": "Error: response status is 401\n\nResponse body\nDownload\n{\n  \"message\": \"El token no está activo.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:26:25 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "23_login_reanudado_200.png",
+      "id": "login",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"token\": 1794410787428\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:26:27 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "05_contenedores_listado_200.png",
+      "id": "getContainers",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"id\": \"CONT-001\",\n    \"address\": \"Calle Ercilla 10, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 2000,\n    \"packageCount\": 400,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.012,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-002\",\n    \"address\": \"Gran Vía 25, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 2000,\n    \"packageCount\": 1200,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.036,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-003\",\n    \"address\": \"Calle Licenciado Poza 30, Bilbao\",\n    \"postalCode\": \"48011\",\n    \"capacity\": 1500,\n    \"packageCount\": 1450,\n    \"fillLevel\": \"RED\",\n    \"estimatedTons\": 0.0435,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-004\",\n    \"address\": \"Avenida de las Universidades 24, Bilbao\",\n    \"postalCode\": \"48007\",\n    \"capacity\": 2500,\n    \"packageCount\": 900,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.027,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-005\",\n    \"address\": \"Calle Rodríguez Arias 8, Bilbao\",\n    \"postalCode\": \"48007\",\n    \"capacity\": 1800,\n    \"packageCount\": 1500,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.045,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-006\",\n    \"address\": \"Calle Dato 10, Vitoria-Gasteiz\",\n    \"postalCode\": \"01001\",\n    \"capacity\": 2000,\n    \"packageCount\": 1900,\n    \"fillLevel\": \"RED\",\n    \"estimatedTons\": 0.057,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-007\",\n    \"address\": \"Calle Postas 5, Vitoria-Gasteiz\",\n    \"postalCode\": \"01001\",\n    \"capacity\": 1500,\n    \"packageCount\": 700,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.021,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-008\",\n    \"address\": \"Paseo de Salamanca 3, Donostia\",\n    \"postalCode\": \"20003\",\n    \"capacity\": 2200,\n    \"packageCount\": 1300,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.039,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-009\",\n    \"address\": \"Calle Loyola 7, Donostia\",\n    \"postalCode\": \"20003\",\n    \"capacity\": 1600,\n    \"packageCount\": 1600,\n    \"fillLevel\": \"RED\",\n    \"estimatedTons\": 0.048,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-010\",\n    \"address\": \"Avenida de Navarra 12, Donostia\",\n    \"postalCode\": \"20013\",\n    \"capacity\": 2000,\n    \"packageCount\": 1000,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.03,\n    \"readingDate\": \"2026-11-11\"\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:26:40 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "06_contenedor_alta_201.png",
+      "id": "createContainer",
+      "expected": 201,
+      "obtained": 201,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"id\": \"CONT-011\",\n  \"address\": \"Calle de Prueba 11, Bilbao\",\n  \"postalCode\": \"48009\",\n  \"capacity\": 1000,\n  \"packageCount\": null,\n  \"fillLevel\": null,\n  \"estimatedTons\": null,\n  \"readingDate\": null\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:26:43 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "07_contenedor_duplicado_409.png",
+      "id": "createContainer",
+      "expected": 409,
+      "obtained": 409,
+      "state": "PASS",
+      "body": "Error: response status is 409\n\nResponse body\nDownload\n{\n  \"message\": \"Ya existe el contenedor CONT-011.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:26:44 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "08_contenedor_sin_lectura.png",
+      "id": "getContainerReadings",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:27:17 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "09_historial_200.png",
+      "id": "getContainerReadings",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"date\": \"2026-11-07\",\n    \"packageCount\": 80,\n    \"fillLevel\": \"GREEN\"\n  },\n  {\n    \"date\": \"2026-11-08\",\n    \"packageCount\": 160,\n    \"fillLevel\": \"GREEN\"\n  },\n  {\n    \"date\": \"2026-11-09\",\n    \"packageCount\": 240,\n    \"fillLevel\": \"GREEN\"\n  },\n  {\n    \"date\": \"2026-11-10\",\n    \"packageCount\": 320,\n    \"fillLevel\": \"GREEN\"\n  },\n  {\n    \"date\": \"2026-11-11\",\n    \"packageCount\": 400,\n    \"fillLevel\": \"GREEN\"\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:27:18 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "10_historial_fecha_invalida_400.png",
+      "id": "getContainerReadings",
+      "expected": 400,
+      "obtained": 400,
+      "state": "PASS",
+      "body": "Error: response status is 400\n\nResponse body\nDownload\n{\n  \"message\": \"El intervalo de fechas no es válido.\"\n}\nResponse headers\n connection: close \n content-type: application/json \n date: Wed,11 Nov 2026 15:27:19 GMT \n transfer-encoding: chunked "
+    },
+    {
+      "file": "24_sensor_semilla_duplicado_409.png",
+      "id": "registerReading",
+      "expected": 409,
+      "obtained": 409,
+      "state": "PASS",
+      "body": "Error: response status is 409\n\nResponse body\nDownload\n{\n  \"message\": \"Ya existe una lectura para el contenedor CONT-001 en la fecha 2026-11-11.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:27:22 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "25_sensor_semilla_conservado_200.png",
+      "id": "getContainers",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"id\": \"CONT-001\",\n    \"address\": \"Calle Ercilla 10, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 2000,\n    \"packageCount\": 400,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.012,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-002\",\n    \"address\": \"Gran Vía 25, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 2000,\n    \"packageCount\": 1200,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.036,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-003\",\n    \"address\": \"Calle Licenciado Poza 30, Bilbao\",\n    \"postalCode\": \"48011\",\n    \"capacity\": 1500,\n    \"packageCount\": 1450,\n    \"fillLevel\": \"RED\",\n    \"estimatedTons\": 0.0435,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-004\",\n    \"address\": \"Avenida de las Universidades 24, Bilbao\",\n    \"postalCode\": \"48007\",\n    \"capacity\": 2500,\n    \"packageCount\": 900,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.027,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-005\",\n    \"address\": \"Calle Rodríguez Arias 8, Bilbao\",\n    \"postalCode\": \"48007\",\n    \"capacity\": 1800,\n    \"packageCount\": 1500,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.045,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-006\",\n    \"address\": \"Calle Dato 10, Vitoria-Gasteiz\",\n    \"postalCode\": \"01001\",\n    \"capacity\": 2000,\n    \"packageCount\": 1900,\n    \"fillLevel\": \"RED\",\n    \"estimatedTons\": 0.057,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-007\",\n    \"address\": \"Calle Postas 5, Vitoria-Gasteiz\",\n    \"postalCode\": \"01001\",\n    \"capacity\": 1500,\n    \"packageCount\": 700,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.021,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-008\",\n    \"address\": \"Paseo de Salamanca 3, Donostia\",\n    \"postalCode\": \"20003\",\n    \"capacity\": 2200,\n    \"packageCount\": 1300,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.039,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-009\",\n    \"address\": \"Calle Loyola 7, Donostia\",\n    \"postalCode\": \"20003\",\n    \"capacity\": 1600,\n    \"packageCount\": 1600,\n    \"fillLevel\": \"RED\",\n    \"estimatedTons\": 0.048,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-010\",\n    \"address\": \"Avenida de Navarra 12, Donostia\",\n    \"postalCode\": \"20013\",\n    \"capacity\": 2000,\n    \"packageCount\": 1000,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.03,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-011\",\n    \"address\": \"Calle de Prueba 11, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 1000,\n    \"packageCount\": null,\n    \"fillLevel\": null,\n    \"estimatedTons\": null,\n    \"readingDate\": null\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:27:36 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "12_sensor_primera_lectura_201.png",
+      "id": "registerReading",
+      "expected": 201,
+      "obtained": 201,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"date\": \"2026-11-11\",\n  \"packageCount\": 125,\n  \"fillLevel\": \"GREEN\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:27:37 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "13_sensor_duplicado_409.png",
+      "id": "registerReading",
+      "expected": 409,
+      "obtained": 409,
+      "state": "PASS",
+      "body": "Error: response status is 409\n\nResponse body\nDownload\n{\n  \"message\": \"Ya existe una lectura para el contenedor CONT-011 en la fecha 2026-11-11.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:27:38 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "11_zona_200.png",
+      "id": "getContainersByZone",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"id\": \"CONT-001\",\n    \"address\": \"Calle Ercilla 10, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 2000,\n    \"packageCount\": 400,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.012,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-002\",\n    \"address\": \"Gran Vía 25, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 2000,\n    \"packageCount\": 1200,\n    \"fillLevel\": \"ORANGE\",\n    \"estimatedTons\": 0.036,\n    \"readingDate\": \"2026-11-11\"\n  },\n  {\n    \"id\": \"CONT-011\",\n    \"address\": \"Calle de Prueba 11, Bilbao\",\n    \"postalCode\": \"48009\",\n    \"capacity\": 1000,\n    \"packageCount\": 125,\n    \"fillLevel\": \"GREEN\",\n    \"estimatedTons\": 0.00375,\n    \"readingDate\": \"2026-11-11\"\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:28:42 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "14_sensor_estado_conservado_200.png",
+      "id": "getContainerReadings",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"date\": \"2026-11-11\",\n    \"packageCount\": 125,\n    \"fillLevel\": \"GREEN\"\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:28:44 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "15_plantas_listado_200.png",
+      "id": "getPlants",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"id\": \"CONTSOCKET\",\n    \"name\": \"ContSocket Ltd.\"\n  },\n  {\n    \"id\": \"PLASSB\",\n    \"name\": \"PlasSB Ltd.\"\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:28:46 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "16_capacidad_inicial_200.png",
+      "id": "getPlantCapacity",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"plantId\": \"PLASSB\",\n  \"plantName\": \"PlasSB Ltd.\",\n  \"date\": \"2026-11-11\",\n  \"totalTons\": 0.4,\n  \"assignedTons\": 0,\n  \"availableTons\": 0.4\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:28:48 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "17_asignacion_correcta_201.png",
+      "id": "assignContainers",
+      "expected": 201,
+      "obtained": 201,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"id\": 1,\n  \"plantId\": \"PLASSB\",\n  \"plantName\": \"PlasSB Ltd.\",\n  \"date\": \"2026-11-11\",\n  \"containerIds\": [\n    \"CONT-003\",\n    \"CONT-006\",\n    \"CONT-009\"\n  ],\n  \"containerCount\": 3,\n  \"totalPackages\": 4950,\n  \"totalTons\": 0.14850000000000002,\n  \"assignedBy\": \"ana.garcia@ecoembes.es\",\n  \"createdAt\": \"2026-11-11T16:29:02.8573991\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:02 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "18_capacidad_actualizada_200.png",
+      "id": "getPlantCapacity",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"plantId\": \"PLASSB\",\n  \"plantName\": \"PlasSB Ltd.\",\n  \"date\": \"2026-11-11\",\n  \"totalTons\": 0.4,\n  \"assignedTons\": 0.14850000000000002,\n  \"availableTons\": 0.2515\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:04 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "19_asignaciones_listado_200.png",
+      "id": "getAssignments",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"id\": 1,\n    \"plantId\": \"PLASSB\",\n    \"plantName\": \"PlasSB Ltd.\",\n    \"date\": \"2026-11-11\",\n    \"containerIds\": [\n      \"CONT-003\",\n      \"CONT-006\",\n      \"CONT-009\"\n    ],\n    \"containerCount\": 3,\n    \"totalPackages\": 4950,\n    \"totalTons\": 0.14850000000000002,\n    \"assignedBy\": \"ana.garcia@ecoembes.es\",\n    \"createdAt\": \"2026-11-11T16:29:02.8573991\"\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:06 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "20_asignacion_duplicada_409.png",
+      "id": "assignContainers",
+      "expected": 409,
+      "obtained": 409,
+      "state": "PASS",
+      "body": "Error: response status is 409\n\nResponse body\nDownload\n{\n  \"message\": \"El contenedor CONT-003 ya está asignado para la fecha 2026-11-11.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:07 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "21_capacidad_insuficiente_409.png",
+      "id": "assignContainers",
+      "expected": 409,
+      "obtained": 409,
+      "state": "PASS",
+      "body": "Error: response status is 409\n\nResponse body\nDownload\n{\n  \"message\": \"La planta no tiene capacidad suficiente para la asignación.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:22 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "22_asignacion_fecha_invalida_400.png",
+      "id": "assignContainers",
+      "expected": 400,
+      "obtained": 400,
+      "state": "PASS",
+      "body": "Error: response status is 400\n\nResponse body\nDownload\n{\n  \"message\": \"La fecha de asignación es obligatoria.\"\n}\nResponse headers\n connection: close \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:24 GMT \n transfer-encoding: chunked "
+    },
+    {
+      "file": "26_capacidad_cero_409.png",
+      "id": "assignContainers",
+      "expected": 409,
+      "obtained": 409,
+      "state": "PASS",
+      "body": "Error: response status is 409\n\nResponse body\nDownload\n{\n  \"message\": \"La planta no tiene capacidad suficiente para la asignación.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:25 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "27_seleccion_vacia_400.png",
+      "id": "assignContainers",
+      "expected": 400,
+      "obtained": 400,
+      "state": "PASS",
+      "body": "Error: response status is 400\n\nResponse body\nDownload\n{\n  \"message\": \"Indica contenedores sin repetir identificadores.\"\n}\nResponse headers\n connection: close \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:26 GMT \n transfer-encoding: chunked "
+    },
+    {
+      "file": "28_sensor_capacidad_400.png",
+      "id": "registerReading",
+      "expected": 400,
+      "obtained": 400,
+      "state": "PASS",
+      "body": "Error: response status is 400\n\nResponse body\nDownload\n{\n  \"message\": \"Cantidad de envases o nivel de llenado incorrecto.\"\n}\nResponse headers\n connection: close \n content-type: application/json \n date: Wed,11 Nov 2026 15:29:29 GMT \n transfer-encoding: chunked "
+    },
+    {
+      "file": "29_sensor_nulo_400.png",
+      "id": "registerReading",
+      "expected": 400,
+      "obtained": 400,
+      "state": "PASS",
+      "body": "Error: response status is 400\n\nResponse body\nDownload\n{\n  \"message\": \"La cantidad de envases y el nivel de llenado son obligatorios.\"\n}\nResponse headers\n connection: close \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:35 GMT \n transfer-encoding: chunked "
+    },
+    {
+      "file": "30_sensor_omitido_400.png",
+      "id": "registerReading",
+      "expected": 400,
+      "obtained": 400,
+      "state": "PASS",
+      "body": "Error: response status is 400\n\nResponse body\nDownload\n{\n  \"message\": \"La cantidad de envases y el nivel de llenado son obligatorios.\"\n}\nResponse headers\n connection: close \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:36 GMT \n transfer-encoding: chunked "
+    },
+    {
+      "file": "31_sensor_nivel_invalido_400.png",
+      "id": "registerReading",
+      "expected": 400,
+      "obtained": 400,
+      "state": "PASS",
+      "body": "Error: response status is 400\n\nResponse body\nDownload\n{\n  \"message\": \"Los datos de la petición no tienen un formato válido\"\n}\nResponse headers\n connection: close \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:37 GMT \n transfer-encoding: chunked "
+    },
+    {
+      "file": "32_historial_inexistente_404.png",
+      "id": "getContainerReadings",
+      "expected": 404,
+      "obtained": 404,
+      "state": "PASS",
+      "body": "Error: response status is 404\n\nResponse body\nDownload\n{\n  \"message\": \"No existe el contenedor NO-EXISTE.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:38 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "33_planta_inexistente_404.png",
+      "id": "getPlantCapacity",
+      "expected": 404,
+      "obtained": 404,
+      "state": "PASS",
+      "body": "Error: response status is 404\n\nResponse body\nDownload\n{\n  \"message\": \"No existe la planta: NO-EXISTE\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:41 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "34_alta_auxiliar_sin_lectura_201.png",
+      "id": "createContainer",
+      "expected": 201,
+      "obtained": 201,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"id\": \"CONT-012\",\n  \"address\": \"Auxiliar de validación\",\n  \"postalCode\": \"48009\",\n  \"capacity\": 1000,\n  \"packageCount\": null,\n  \"fillLevel\": null,\n  \"estimatedTons\": null,\n  \"readingDate\": null\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:55 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "35_asignacion_sin_lectura_409.png",
+      "id": "assignContainers",
+      "expected": 409,
+      "obtained": 409,
+      "state": "PASS",
+      "body": "Error: response status is 409\n\nResponse body\nDownload\n{\n  \"message\": \"El contenedor CONT-012 no tiene lecturas registradas.\"\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:57 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "36_capacidad_sin_cambios_200.png",
+      "id": "getPlantCapacity",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n{\n  \"plantId\": \"PLASSB\",\n  \"plantName\": \"PlasSB Ltd.\",\n  \"date\": \"2026-11-11\",\n  \"totalTons\": 0.4,\n  \"assignedTons\": 0.14850000000000002,\n  \"availableTons\": 0.2515\n}\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:30:58 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "37_asignaciones_sin_parciales_200.png",
+      "id": "getAssignments",
+      "expected": 200,
+      "obtained": 200,
+      "state": "PASS",
+      "body": "Response body\nDownload\n[\n  {\n    \"id\": 1,\n    \"plantId\": \"PLASSB\",\n    \"plantName\": \"PlasSB Ltd.\",\n    \"date\": \"2026-11-11\",\n    \"containerIds\": [\n      \"CONT-003\",\n      \"CONT-006\",\n      \"CONT-009\"\n    ],\n    \"containerCount\": 3,\n    \"totalPackages\": 4950,\n    \"totalTons\": 0.14850000000000002,\n    \"assignedBy\": \"ana.garcia@ecoembes.es\",\n    \"createdAt\": \"2026-11-11T16:29:02.8573991\"\n  }\n]\nResponse headers\n connection: keep-alive \n content-type: application/json \n date: Wed,11 Nov 2026 15:31:00 GMT \n keep-alive: timeout=60 \n transfer-encoding: chunked "
+    },
+    {
+      "file": "38_logout_final_204.png",
+      "id": "logout",
+      "expected": 204,
+      "obtained": 204,
+      "state": "PASS",
+      "body": "Response headers\n connection: keep-alive \n date: Wed,11 Nov 2026 15:31:02 GMT \n keep-alive: timeout=60 "
+    }
+  ]
+}
