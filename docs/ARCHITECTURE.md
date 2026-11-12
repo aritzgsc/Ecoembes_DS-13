@@ -2,9 +2,9 @@
 
 [← Volver al README](../README.md)
 
-Este documento presenta la arquitectura prevista para el **Prototipo 1** del servidor Ecoembes, su organización interna y los modelos UML utilizados como referencia de implementación.
+Este documento presenta la arquitectura implementada para el **Prototipo 1** del servidor Ecoembes, su organización interna y los modelos UML utilizados como referencia de implementación.
 
-> **Estado de la implementación:** la base de Spring Boot está inicializada y el servidor arranca correctamente. Las clases, relaciones y operaciones descritas a continuación representan el diseño del prototipo; su implementación se realizará de forma incremental.
+> **Estado del Prototipo 1:** once operaciones REST implementadas. Las ejecuciones registradas el 11/11/2026 incluyen 63 pruebas JUnit, 72 escenarios HTTP y 38 ejecuciones desde Swagger UI. El estado funcional y las sesiones se mantienen en memoria.
 
 ## Visión general
 
@@ -24,7 +24,7 @@ El código Java se distribuye en los siguientes paquetes, bajo `es.deusto.sd.eco
 | --- | --- | --- |
 | `facade` | Recibir peticiones HTTP, validar su entrada y construir respuestas. | `EcoembesFacade` |
 | `service` | Orquestar casos de uso y aplicar reglas de negocio. | `AuthAppService`, `ContainerAppService`, `PlantAppService`, `AssignmentAppService` |
-| `dto` | Separar el contrato público de la API del modelo interno. | DTOs de autenticación, contenedores, lecturas, plantas y asignaciones; `DtoAssembler` |
+| `dto` | Separar los datos de entrada y salida de la API del modelo interno. | DTOs de autenticación, contenedores, lecturas, plantas y asignaciones; `DtoAssembler` |
 | `domain` | Representar entidades y relaciones del negocio. | `Employee`, `Container`, `ContainerReading`, `FillLevel`, `RecyclingPlant`, `Assignment`, `Truck`, `Route` |
 | `state` | Mantener las sesiones activas y el estado compartido necesario. | `ServerState` |
 | `external` | Encapsular las particularidades de cada planta. | `RecyclingPlantGateway`, `PlasSBGateway`, `ContSocketGateway` |
@@ -99,7 +99,7 @@ Los diagramas se exportan desde Visual Paradigm 18.1. Cuando se modifique un mod
 
 ### Autenticación y sesiones
 
-El personal de Ecoembes se autentica con correo electrónico y contraseña. Si las credenciales son válidas, el servidor genera un identificador temporal que permite acceder a las operaciones reservadas al personal. Al cerrar sesión, dicho token se invalida.
+El personal de Ecoembes se autentica con correo electrónico y contraseña. Si las credenciales son válidas, el servidor genera un token de sesión que permite acceder a las operaciones reservadas al personal. El token no caduca automáticamente: se invalida al cerrar sesión o al reiniciar el servidor.
 
 En este prototipo las sesiones se guardan en memoria. El token se pasa como parámetro en las solicitudes del personal, de acuerdo con las convenciones del ejercicio; no se considera un esquema apropiado para un despliegue de producción.
 
@@ -125,7 +125,11 @@ La asignación es **atómica desde el punto de vista funcional**: se acepta el c
 
 Se registra la identidad del empleado responsable y se notifica a la planta seleccionada el número de contenedores y la cantidad estimada de envases. En el Prototipo 1 esa notificación se simula.
 
-## API REST prevista
+## Concurrencia del estado
+
+`ContainerAppService` sincroniza las operaciones sobre su colección de contenedores; `Container` protege el historial de lecturas, incluida la comprobación y el alta de la primera lectura diaria. `AssignmentAppService` sincroniza la validación y el registro de asignaciones, de modo que una asignación rechazada no deja reservas parciales. Estas garantías se aplican a la ejecución local en memoria: no constituyen un mecanismo de coordinación entre varias instancias del servidor.
+
+## API REST
 
 La interfaz HTTP se organiza en las siguientes operaciones:
 
@@ -143,7 +147,19 @@ La interfaz HTTP se organiza en las siguientes operaciones:
 | Asignaciones | `POST` | `/api/plants/{plantId}/assignments` | Registrar una asignación. |
 | Asignaciones | `GET` | `/api/plants/{plantId}/assignments` | Consultar las asignaciones registradas. |
 
-Estas rutas describen el diseño objetivo, **no funcionalidades ya implementadas**. Cuando los controladores estén disponibles, podrán explorarse desde [Swagger UI](http://localhost:8080/swagger-ui.html).
+Estas once operaciones están implementadas y pueden explorarse desde [Swagger UI](http://localhost:8080/swagger-ui/index.html) con el servidor iniciado. Los errores previstos utilizan `ErrorDTO`. La descripción detallada de parámetros, respuestas y reglas de negocio se recoge en la [memoria técnica del Prototipo 1](entrega/Ecoembes%20-%20P1%20-%20Grupo%2013.pdf).
+
+## Pruebas y evidencias
+
+Se han documentado tres modalidades de comprobación sobre el Prototipo 1:
+
+| Modalidad | Ejecución registrada | Evidencia |
+| --- | --- | --- |
+| Pruebas automatizadas JUnit | 63 pruebas en 12 suites; 0 fallos, 0 errores y 0 omitidas | [Resumen JUnit](evidencias/pruebas/resumen_junit.json) · [Gradle](evidencias/pruebas/gradle_clean_build.txt) |
+| Validación funcional HTTP | 72 escenarios correctos; 0 fallidos | [Resultados HTTP](evidencias/http/resultados.json) · [Script reproducible](validacion/validar_api.mjs) |
+| Swagger UI | 38 ejecuciones con respuesta esperada y 39 capturas (incluida la vista general) | [Índice de capturas](evidencias/swagger/README.md) · [Registro UI](evidencias/swagger/resultados_ui.json) |
+
+Los registros corresponden a pruebas realizadas el **11/11/2026**. La batería HTTP comprueba también la conservación del estado ante errores, el rechazo de lecturas duplicadas y la ausencia de asignaciones parciales. Las capturas muestran ejemplos de ejecución, no 39 pruebas adicionales. La [especificación OpenAPI](evidencias/http/openapi.json) se incluye como referencia de la API exportada.
 
 ## Límites del Prototipo 1
 

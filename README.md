@@ -7,15 +7,15 @@ Ecoembes es un servidor basado en **Java y Spring Boot** que proporciona una API
 
 El desarrollo se organiza en prototipos incrementales. El **Prototipo 1** se centra en el diseño del servidor, su API y la simulación de los sistemas externos, sin persistencia en base de datos.
 
-[**Arquitectura y decisiones de diseño**](docs/ARCHITECTURE.md) · [**Diagramas UML**](docs/ARCHITECTURE.md#diagramas-uml) · [**API REST prevista**](docs/ARCHITECTURE.md#api-rest-prevista)
+[**Arquitectura y decisiones de diseño**](docs/ARCHITECTURE.md) · [**Diagramas UML**](docs/ARCHITECTURE.md#diagramas-uml) · [**API REST**](docs/ARCHITECTURE.md#api-rest)
 
-> **Estado actual:** estructura del proyecto inicializada y servidor Spring Boot en funcionamiento. Las operaciones de negocio se incorporarán durante el desarrollo del prototipo.
+> **Estado del Prototipo 1:** once operaciones REST implementadas. En las ejecuciones registradas el 11/11/2026 se superaron 63 pruebas JUnit, 72 escenarios HTTP y 38 peticiones desde Swagger UI (39 capturas, incluida la vista general). [Consultar las evidencias](docs/evidencias/swagger/README.md).
 
 ## Funcionalidades
 
-El diseño del Prototipo 1 contempla:
+El Prototipo 1 implementa:
 
-- **Autenticación del personal:** inicio y cierre de sesión mediante correo electrónico, contraseña y token temporal.
+- **Autenticación del personal:** inicio y cierre de sesión mediante correo electrónico, contraseña y token de sesión. Este no tiene caducidad automática; se invalida al cerrar sesión o reiniciar el servidor.
 - **Gestión de contenedores:** registro y listado de contenedores, con su ubicación y capacidad.
 - **Lecturas de sensores:** recepción diaria de la cantidad estimada de envases y del nivel de llenado (`GREEN`, `ORANGE` o `RED`).
 - **Consultas de información:** historial por intervalo de fechas y estado de contenedores agrupados por zona postal.
@@ -74,16 +74,24 @@ Una vez iniciada la aplicación:
 | Servicio | Dirección |
 | --- | --- |
 | Servidor HTTP | http://localhost:8080 |
-| Swagger UI | http://localhost:8080/swagger-ui.html |
+| Swagger UI | http://localhost:8080/swagger-ui/index.html |
 | Especificación OpenAPI | http://localhost:8080/v3/api-docs |
 
 > La ruta `/` puede devolver `404` porque no se ha definido una página de inicio. Para explorar la API se utiliza Swagger UI.
 
-Para ejecutar las pruebas:
+Para ejecutar las pruebas JUnit desde Windows:
 
 ```powershell
-.\gradlew.bat test
+.\gradlew.bat clean test
 ```
+
+Para reproducir la batería de escenarios HTTP se necesita **Node.js** y el servidor arrancado con sus datos iniciales (sin operaciones previas en esa ejecución):
+
+```powershell
+node .\docs\validacion\validar_api.mjs
+```
+
+El script guarda el resultado en [`docs/evidencias/http/resultados.json`](docs/evidencias/http/resultados.json). La batería modifica el estado en memoria, de modo que debe reiniciarse el servidor antes de repetirla.
 
 ## Estructura del proyecto
 
@@ -104,3 +112,16 @@ Las responsabilidades de cada paquete se desarrollan en la **[documentación de 
 ## Alcance del Prototipo 1
 
 El estado del servidor se mantiene **en memoria**, y las comunicaciones con las plantas externas se **simulan**. La persistencia, las comunicaciones reales con los sistemas de las plantas y la interfaz gráfica de usuario se reservan para prototipos posteriores.
+
+## Documentación y evidencias
+
+- [Memoria técnica del Prototipo 1 (PDF)](docs/entrega/Ecoembes%20-%20P1%20-%20Grupo%2013.pdf).
+- [Arquitectura y diagramas UML](docs/ARCHITECTURE.md).
+- [Índice de evidencias de Swagger UI](docs/evidencias/swagger/README.md) y [registro de ejecuciones](docs/evidencias/swagger/resultados_ui.json).
+- [Resultados de los 72 escenarios HTTP](docs/evidencias/http/resultados.json) y [script de validación](docs/validacion/validar_api.mjs).
+- [Resumen de JUnit](docs/evidencias/pruebas/resumen_junit.json) y [registro de compilación Gradle](docs/evidencias/pruebas/gradle_clean_build.txt).
+- [Especificación OpenAPI exportada](docs/evidencias/http/openapi.json).
+
+Los resultados enlazados corresponden a ejecuciones registradas el **11/11/2026**; las capturas de Swagger ilustran respuestas obtenidas en esa fecha. Los ejemplos de fechas de las peticiones deben adaptarse al día de ejecución cuando exista una ventana temporal de diez días.
+
+**Datos de demostración:** `ana.garcia@ecoembes.es` / `ana123` (cuenta ficticia local). El reinicio de la aplicación restaura los datos iniciales del prototipo.
