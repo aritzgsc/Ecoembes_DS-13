@@ -11,7 +11,7 @@ Este documento presenta la arquitectura implementada para el **Prototipo 1** del
 El sistema conecta tres tipos de participantes:
 
 1. **Personal de Ecoembes**, que inicia sesión, consulta información y asigna contenedores a plantas de reciclaje.
-2. **Sensores de contenedores**, que transmiten una lectura diaria con el número estimado de envases y su nivel de llenado.
+2. **Sensores de contenedores**, que transmiten una lectura diaria con el número estimado de envases. El servidor calcula el nivel de llenado.
 3. **Plantas de reciclaje**, que informan de su capacidad por fecha y reciben las notificaciones de las asignaciones.
 
 La aplicación expone una **API REST** y separa la lógica de negocio de los mecanismos HTTP y de las integraciones externas. En este primer prototipo, las plantas se simulan mediante adaptadores internos; no se realizan conexiones reales a sus sistemas.
@@ -25,7 +25,7 @@ El código Java se distribuye en los siguientes paquetes, bajo `es.deusto.sd.eco
 | `facade` | Recibir peticiones HTTP, validar su entrada y construir respuestas. | `EcoembesFacade` |
 | `service` | Orquestar casos de uso y aplicar reglas de negocio. | `AuthAppService`, `ContainerAppService`, `PlantAppService`, `AssignmentAppService` |
 | `dto` | Separar los datos de entrada y salida de la API del modelo interno. | DTOs de autenticación, contenedores, lecturas, plantas y asignaciones; `DtoAssembler` |
-| `domain` | Representar entidades y relaciones del negocio. | `Employee`, `Container`, `ContainerReading`, `FillLevel`, `RecyclingPlant`, `Assignment`, `Truck`, `Route` |
+| `domain` | Representar entidades y relaciones del negocio. | `Employee`, `Container`, `ContainerReading`, `FillLevel`, `RecyclingPlant`, `PlantCapacityRecord`, `Assignment`, `Truck`, `Route` |
 | `state` | Mantener las sesiones activas y el estado compartido necesario. | `ServerState` |
 | `external` | Encapsular las particularidades de cada planta. | `RecyclingPlantGateway`, `PlasSBGateway`, `ContSocketGateway` |
 | `exception` | Traducir errores de aplicación en respuestas HTTP coherentes. | Excepciones específicas y `GlobalExceptionHandler` |
@@ -107,7 +107,7 @@ En este prototipo las sesiones se guardan en memoria. El token se pasa como par�
 
 Un contenedor dispone de identificador, dirección, código postal y capacidad máxima estimada en número de envases. Al darlo de alta no se inventa ninguna medición inicial: su estado de llenado permanece sin lectura hasta que el sensor transmite una.
 
-Las lecturas contienen una cantidad estimada de envases y uno de los niveles `GREEN`, `ORANGE` o `RED`. La fecha se determina en el servidor. Se contempla **una lectura por contenedor y día**; los duplicados para el mismo día se rechazan.
+El sensor transmite únicamente la cantidad estimada de envases. El servidor determina la fecha y calcula internamente el nivel de llenado según la proporción respecto a la capacidad del contenedor: `GREEN` por debajo del 50 %, `ORANGE` desde el 50 % hasta menos del 85 % y `RED` desde el 85 %. Se contempla **una lectura por contenedor y día**; los duplicados para el mismo día se rechazan. El historial devuelto por la API contiene la fecha y la cantidad de envases, sin el nivel de llenado.
 
 El personal puede consultar el historial de un contenedor dentro de un intervalo de fechas y obtener el estado de los contenedores de una zona postal en una fecha determinada.
 
@@ -116,6 +116,8 @@ El personal puede consultar el historial de un contenedor dentro de un intervalo
 Cada planta declara una capacidad diaria expresada en **toneladas**. La capacidad disponible se obtiene descontando la carga ya asignada para esa fecha. La consulta y asignación se limitan a la ventana prevista de **diez días** (hoy y los nueve siguientes).
 
 En el prototipo, `PlasSBGateway` y `ContSocketGateway` simulan las dos plantas. La interfaz `RecyclingPlantGateway` permite desacoplar sus particularidades de los servicios de aplicación.
+
+Las capacidades consultadas se conservan en memoria mediante `PlantCapacityRecord`, asociada a `RecyclingPlant`. Cada registro contiene una fecha y la capacidad total declarada para ese día, expresada en toneladas. El histórico guarda un registro por fecha consultada y mantiene las fechas pasadas aunque dejen de estar dentro de la ventana de diez días. Si se vuelve a consultar la misma fecha, se actualiza su registro. La capacidad asignada y la disponible siguen calculándose a partir de las asignaciones registradas.
 
 ### Asignación y auditoría
 

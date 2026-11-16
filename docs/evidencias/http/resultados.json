@@ -1,7 +1,7 @@
 {
-  "executedAt": "2026-11-12T02:39:31.003Z",
+  "executedAt": "2026-11-16T10:23:26.880Z",
   "base": "http://localhost:8080",
-  "serverDate": "2026-11-12",
+  "serverDate": "2026-11-16",
   "counts": {
     "PASS": 72,
     "FAIL": 0,
@@ -24,7 +24,7 @@
       },
       "status": 200,
       "data": {
-        "token": 1794451168666
+        "token": 1794824604504
       }
     },
     {
@@ -85,7 +85,7 @@
       "obtained": 204,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/auth/logout?token=1794451168666",
+      "url": "/api/auth/logout?token=1794824604504",
       "status": 204,
       "data": ""
     },
@@ -97,7 +97,7 @@
       "obtained": 401,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/containers?token=1794451168666",
+      "url": "/api/containers?token=1794824604504",
       "status": 401,
       "data": {
         "message": "El token no está activo."
@@ -118,7 +118,7 @@
       },
       "status": 200,
       "data": {
-        "token": 1794451168988
+        "token": 1794824604785
       }
     },
     {
@@ -129,7 +129,7 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "status": 200,
       "data": [
         {
@@ -140,7 +140,7 @@
           "packageCount": 400,
           "fillLevel": "GREEN",
           "estimatedTons": 0.012,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-002",
@@ -150,7 +150,7 @@
           "packageCount": 1200,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.036,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-003",
@@ -160,7 +160,7 @@
           "packageCount": 1450,
           "fillLevel": "RED",
           "estimatedTons": 0.0435,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-004",
@@ -170,7 +170,7 @@
           "packageCount": 900,
           "fillLevel": "GREEN",
           "estimatedTons": 0.027,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-005",
@@ -180,7 +180,7 @@
           "packageCount": 1500,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.045,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-006",
@@ -190,7 +190,7 @@
           "packageCount": 1900,
           "fillLevel": "RED",
           "estimatedTons": 0.057,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-007",
@@ -200,7 +200,7 @@
           "packageCount": 700,
           "fillLevel": "GREEN",
           "estimatedTons": 0.021,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-008",
@@ -210,7 +210,7 @@
           "packageCount": 1300,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.039,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-009",
@@ -220,7 +220,7 @@
           "packageCount": 1600,
           "fillLevel": "RED",
           "estimatedTons": 0.048,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-010",
@@ -230,7 +230,7 @@
           "packageCount": 1000,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.03,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         }
       ]
     },
@@ -242,7 +242,7 @@
       "obtained": 201,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "body": {
         "id": "CONT-011",
         "address": "Calle de Prueba 11, Bilbao",
@@ -269,7 +269,7 @@
       "obtained": 409,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "body": {
         "id": "CONT-011",
         "address": "Calle de Prueba 11, Bilbao",
@@ -289,7 +289,7 @@
       "obtained": 400,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "body": {
         "id": "INVALID-CAP",
         "address": "Calle de Prueba 11, Bilbao",
@@ -309,7 +309,7 @@
       "obtained": 400,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "body": {
         "id": "INVALID-ZIP",
         "address": "Calle de Prueba 11, Bilbao",
@@ -324,38 +324,33 @@
     {
       "id": "HTTP-013",
       "area": "C",
-      "scenario": "Historial cinco lecturas 80 a 400",
+      "scenario": "Historial cinco lecturas 80 a 400 sin fillLevel",
       "expected": 200,
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/containers/CONT-001/readings?from=2026-11-08&to=2026-11-12&token=1794451168988",
+      "url": "/api/containers/CONT-001/readings?from=2026-11-12&to=2026-11-16&token=1794824604785",
       "status": 200,
       "data": [
         {
-          "date": "2026-11-08",
-          "packageCount": 80,
-          "fillLevel": "GREEN"
-        },
-        {
-          "date": "2026-11-09",
-          "packageCount": 160,
-          "fillLevel": "GREEN"
-        },
-        {
-          "date": "2026-11-10",
-          "packageCount": 240,
-          "fillLevel": "GREEN"
-        },
-        {
-          "date": "2026-11-11",
-          "packageCount": 320,
-          "fillLevel": "GREEN"
-        },
-        {
           "date": "2026-11-12",
-          "packageCount": 400,
-          "fillLevel": "GREEN"
+          "packageCount": 80
+        },
+        {
+          "date": "2026-11-13",
+          "packageCount": 160
+        },
+        {
+          "date": "2026-11-14",
+          "packageCount": 240
+        },
+        {
+          "date": "2026-11-15",
+          "packageCount": 320
+        },
+        {
+          "date": "2026-11-16",
+          "packageCount": 400
         }
       ]
     },
@@ -367,7 +362,7 @@
       "obtained": 400,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/containers/CONT-001/readings?from=2026-11-12&to=2026-11-08&token=1794451168988",
+      "url": "/api/containers/CONT-001/readings?from=2026-11-16&to=2026-11-12&token=1794824604785",
       "status": 400,
       "data": {
         "message": "El intervalo de fechas no es válido."
@@ -381,7 +376,7 @@
       "obtained": 404,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/containers/MISSING/readings?from=2026-11-08&to=2026-11-12&token=1794451168988",
+      "url": "/api/containers/MISSING/readings?from=2026-11-12&to=2026-11-16&token=1794824604785",
       "status": 404,
       "data": {
         "message": "No existe el contenedor MISSING."
@@ -397,12 +392,11 @@
       "method": "POST",
       "url": "/api/containers/CONT-001/readings",
       "body": {
-        "packageCount": 500,
-        "fillLevel": "ORANGE"
+        "packageCount": 500
       },
       "status": 409,
       "data": {
-        "message": "Ya existe una lectura para el contenedor CONT-001 en la fecha 2026-11-12."
+        "message": "Ya existe una lectura para el contenedor CONT-001 en la fecha 2026-11-16."
       }
     },
     {
@@ -413,7 +407,7 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "status": 200,
       "data": [
         {
@@ -424,7 +418,7 @@
           "packageCount": 400,
           "fillLevel": "GREEN",
           "estimatedTons": 0.012,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-002",
@@ -434,7 +428,7 @@
           "packageCount": 1200,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.036,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-003",
@@ -444,7 +438,7 @@
           "packageCount": 1450,
           "fillLevel": "RED",
           "estimatedTons": 0.0435,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-004",
@@ -454,7 +448,7 @@
           "packageCount": 900,
           "fillLevel": "GREEN",
           "estimatedTons": 0.027,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-005",
@@ -464,7 +458,7 @@
           "packageCount": 1500,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.045,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-006",
@@ -474,7 +468,7 @@
           "packageCount": 1900,
           "fillLevel": "RED",
           "estimatedTons": 0.057,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-007",
@@ -484,7 +478,7 @@
           "packageCount": 700,
           "fillLevel": "GREEN",
           "estimatedTons": 0.021,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-008",
@@ -494,7 +488,7 @@
           "packageCount": 1300,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.039,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-009",
@@ -504,7 +498,7 @@
           "packageCount": 1600,
           "fillLevel": "RED",
           "estimatedTons": 0.048,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-010",
@@ -514,7 +508,7 @@
           "packageCount": 1000,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.03,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-011",
@@ -531,50 +525,47 @@
     {
       "id": "HTTP-018",
       "area": "D",
-      "scenario": "Primera lectura CONT-011 sin token",
+      "scenario": "Primera lectura CONT-011 sin token ni fillLevel",
       "expected": 201,
       "obtained": 201,
       "state": "PASS",
       "method": "POST",
       "url": "/api/containers/CONT-011/readings",
       "body": {
-        "packageCount": 125,
-        "fillLevel": "GREEN"
+        "packageCount": 125
       },
       "status": 201,
       "data": {
-        "date": "2026-11-12",
-        "packageCount": 125,
-        "fillLevel": "GREEN"
+        "date": "2026-11-16",
+        "packageCount": 125
       }
     },
     {
       "id": "HTTP-019",
       "area": "D",
-      "scenario": "Duplicado sensor CONT-011 140 GREEN",
+      "scenario": "Duplicado sensor CONT-011 140",
       "expected": 409,
       "obtained": 409,
       "state": "PASS",
       "method": "POST",
       "url": "/api/containers/CONT-011/readings",
       "body": {
-        "packageCount": 140,
-        "fillLevel": "GREEN"
+        "packageCount": 140
       },
       "status": 409,
       "data": {
-        "message": "Ya existe una lectura para el contenedor CONT-011 en la fecha 2026-11-12."
+        "message": "Ya existe una lectura para el contenedor CONT-011 en la fecha 2026-11-16."
       }
     },
     {
       "id": "HTTP-020",
       "area": "D",
-      "scenario": "CONT-011 conserva 125 GREEN",
+      "scenario": "CONT-011 conserva 125 GREEN calculado",
       "expected": 200,
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "status": 200,
       "data": [
         {
@@ -585,7 +576,7 @@
           "packageCount": 400,
           "fillLevel": "GREEN",
           "estimatedTons": 0.012,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-002",
@@ -595,7 +586,7 @@
           "packageCount": 1200,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.036,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-003",
@@ -605,7 +596,7 @@
           "packageCount": 1450,
           "fillLevel": "RED",
           "estimatedTons": 0.0435,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-004",
@@ -615,7 +606,7 @@
           "packageCount": 900,
           "fillLevel": "GREEN",
           "estimatedTons": 0.027,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-005",
@@ -625,7 +616,7 @@
           "packageCount": 1500,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.045,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-006",
@@ -635,7 +626,7 @@
           "packageCount": 1900,
           "fillLevel": "RED",
           "estimatedTons": 0.057,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-007",
@@ -645,7 +636,7 @@
           "packageCount": 700,
           "fillLevel": "GREEN",
           "estimatedTons": 0.021,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-008",
@@ -655,7 +646,7 @@
           "packageCount": 1300,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.039,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-009",
@@ -665,7 +656,7 @@
           "packageCount": 1600,
           "fillLevel": "RED",
           "estimatedTons": 0.048,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-010",
@@ -675,7 +666,7 @@
           "packageCount": 1000,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.03,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-011",
@@ -685,7 +676,7 @@
           "packageCount": 125,
           "fillLevel": "GREEN",
           "estimatedTons": 0.00375,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         }
       ]
     },
@@ -699,12 +690,11 @@
       "method": "POST",
       "url": "/api/containers/CONT-011/readings",
       "body": {
-        "packageCount": 1001,
-        "fillLevel": "RED"
+        "packageCount": 1001
       },
       "status": 400,
       "data": {
-        "message": "Cantidad de envases o nivel de llenado incorrecto."
+        "message": "Cantidad de envases incorrecta."
       }
     },
     {
@@ -717,12 +707,11 @@
       "method": "POST",
       "url": "/api/containers/CONT-011/readings",
       "body": {
-        "packageCount": null,
-        "fillLevel": "GREEN"
+        "packageCount": null
       },
       "status": 400,
       "data": {
-        "message": "Cantidad de envases o nivel de llenado incorrecto."
+        "message": "Cantidad de envases incorrecta."
       }
     },
     {
@@ -734,30 +723,27 @@
       "state": "PASS",
       "method": "POST",
       "url": "/api/containers/CONT-011/readings",
-      "body": {
-        "fillLevel": "GREEN"
-      },
+      "body": {},
       "status": 400,
       "data": {
-        "message": "Cantidad de envases o nivel de llenado incorrecto."
+        "message": "Cantidad de envases incorrecta."
       }
     },
     {
       "id": "HTTP-024",
       "area": "D",
-      "scenario": "Nivel inválido",
+      "scenario": "Cantidad negativa",
       "expected": 400,
       "obtained": 400,
       "state": "PASS",
       "method": "POST",
       "url": "/api/containers/CONT-011/readings",
       "body": {
-        "packageCount": 10,
-        "fillLevel": "BLUE"
+        "packageCount": -1
       },
       "status": 400,
       "data": {
-        "message": "Los datos de la petición no tienen un formato válido"
+        "message": "Cantidad de envases incorrecta."
       }
     },
     {
@@ -770,8 +756,7 @@
       "method": "POST",
       "url": "/api/containers/MISSING/readings",
       "body": {
-        "packageCount": 10,
-        "fillLevel": "GREEN"
+        "packageCount": 10
       },
       "status": 404,
       "data": {
@@ -786,7 +771,7 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/zones/48009/containers?date=2026-11-12&token=1794451168988",
+      "url": "/api/zones/48009/containers?date=2026-11-16&token=1794824604785",
       "status": 200,
       "data": [
         {
@@ -797,7 +782,7 @@
           "packageCount": 400,
           "fillLevel": "GREEN",
           "estimatedTons": 0.012,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-002",
@@ -807,7 +792,7 @@
           "packageCount": 1200,
           "fillLevel": "ORANGE",
           "estimatedTons": 0.036,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         },
         {
           "id": "CONT-011",
@@ -817,7 +802,7 @@
           "packageCount": 125,
           "fillLevel": "GREEN",
           "estimatedTons": 0.00375,
-          "readingDate": "2026-11-12"
+          "readingDate": "2026-11-16"
         }
       ]
     },
@@ -829,7 +814,7 @@
       "obtained": 400,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/zones/48/containers?date=2026-11-12&token=1794451168988",
+      "url": "/api/zones/48/containers?date=2026-11-16&token=1794824604785",
       "status": 400,
       "data": {
         "message": "Código postal o fecha incorrectos."
@@ -843,7 +828,7 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/zones/99999/containers?date=2026-11-12&token=1794451168988",
+      "url": "/api/zones/99999/containers?date=2026-11-16&token=1794824604785",
       "status": 200,
       "data": []
     },
@@ -855,7 +840,7 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/zones/48009/containers?date=2026-11-07&token=1794451168988",
+      "url": "/api/zones/48009/containers?date=2026-11-11&token=1794824604785",
       "status": 200,
       "data": []
     },
@@ -867,7 +852,7 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants?token=1794451168988",
+      "url": "/api/plants?token=1794824604785",
       "status": 200,
       "data": [
         {
@@ -888,12 +873,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-12&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-16&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "totalTons": 0.4,
         "assignedTons": 0,
         "availableTons": 0.4
@@ -907,7 +892,7 @@
       "obtained": 404,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/MISSING/capacity?date=2026-11-12&token=1794451168988",
+      "url": "/api/plants/MISSING/capacity?date=2026-11-16&token=1794824604785",
       "status": 404,
       "data": {
         "message": "No existe la planta: MISSING"
@@ -921,7 +906,7 @@
       "obtained": 400,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-22&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-26&token=1794824604785",
       "status": 400,
       "data": {
         "message": "La fecha debe estar entre hoy y los próximos nueve días."
@@ -935,12 +920,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-12&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-16&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "totalTons": 0.4,
         "assignedTons": 0,
         "availableTons": 0.4
@@ -954,12 +939,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-12&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-16&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "totalTons": 0.3,
         "assignedTons": 0,
         "availableTons": 0.3
@@ -973,12 +958,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-13&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-17&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-13",
+        "date": "2026-11-17",
         "totalTons": 0.35,
         "assignedTons": 0,
         "availableTons": 0.35
@@ -992,12 +977,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-13&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-17&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-13",
+        "date": "2026-11-17",
         "totalTons": 0.3,
         "assignedTons": 0,
         "availableTons": 0.3
@@ -1011,12 +996,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-14&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-18&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-14",
+        "date": "2026-11-18",
         "totalTons": 0.5,
         "assignedTons": 0,
         "availableTons": 0.5
@@ -1030,12 +1015,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-14&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-18&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-14",
+        "date": "2026-11-18",
         "totalTons": 0.25,
         "assignedTons": 0,
         "availableTons": 0.25
@@ -1049,12 +1034,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-15&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-19&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-15",
+        "date": "2026-11-19",
         "totalTons": 0.45,
         "assignedTons": 0,
         "availableTons": 0.45
@@ -1068,12 +1053,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-15&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-19&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-15",
+        "date": "2026-11-19",
         "totalTons": 0.35,
         "assignedTons": 0,
         "availableTons": 0.35
@@ -1087,12 +1072,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-16&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-20&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "totalTons": 0.3,
         "assignedTons": 0,
         "availableTons": 0.3
@@ -1106,12 +1091,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-16&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-20&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "totalTons": 0.4,
         "assignedTons": 0,
         "availableTons": 0.4
@@ -1125,12 +1110,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-17&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-21&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-17",
+        "date": "2026-11-21",
         "totalTons": 0.2,
         "assignedTons": 0,
         "availableTons": 0.2
@@ -1144,12 +1129,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-17&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-21&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-17",
+        "date": "2026-11-21",
         "totalTons": 0.45,
         "assignedTons": 0,
         "availableTons": 0.45
@@ -1163,12 +1148,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-18&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-22&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-18",
+        "date": "2026-11-22",
         "totalTons": 0,
         "assignedTons": 0,
         "availableTons": 0
@@ -1182,12 +1167,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-18&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-22&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-18",
+        "date": "2026-11-22",
         "totalTons": 0.3,
         "assignedTons": 0,
         "availableTons": 0.3
@@ -1201,12 +1186,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-19&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-23&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-19",
+        "date": "2026-11-23",
         "totalTons": 0.4,
         "assignedTons": 0,
         "availableTons": 0.4
@@ -1220,12 +1205,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-19&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-23&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-19",
+        "date": "2026-11-23",
         "totalTons": 0.2,
         "assignedTons": 0,
         "availableTons": 0.2
@@ -1239,12 +1224,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-20&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-24&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-20",
+        "date": "2026-11-24",
         "totalTons": 0.45,
         "assignedTons": 0,
         "availableTons": 0.45
@@ -1258,12 +1243,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-20&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-24&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-20",
+        "date": "2026-11-24",
         "totalTons": 0.25,
         "assignedTons": 0,
         "availableTons": 0.25
@@ -1277,12 +1262,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-21&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-25&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-21",
+        "date": "2026-11-25",
         "totalTons": 0.5,
         "assignedTons": 0,
         "availableTons": 0.5
@@ -1296,12 +1281,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-21&token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/capacity?date=2026-11-25&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "CONTSOCKET",
         "plantName": "ContSocket Ltd.",
-        "date": "2026-11-21",
+        "date": "2026-11-25",
         "totalTons": 0.3,
         "assignedTons": 0,
         "availableTons": 0.3
@@ -1315,9 +1300,9 @@
       "obtained": 201,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-003",
           "CONT-006",
@@ -1329,7 +1314,7 @@
         "id": 1,
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-003",
           "CONT-006",
@@ -1339,7 +1324,7 @@
         "totalPackages": 4950,
         "totalTons": 0.14850000000000002,
         "assignedBy": "ana.garcia@ecoembes.es",
-        "createdAt": "2026-11-12T03:39:29.3882347"
+        "createdAt": "2026-11-16T11:23:25.1604957"
       }
     },
     {
@@ -1350,12 +1335,12 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=2026-11-12&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=2026-11-16&token=1794824604785",
       "status": 200,
       "data": {
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "totalTons": 0.4,
         "assignedTons": 0.14850000000000002,
         "availableTons": 0.2515
@@ -1369,14 +1354,14 @@
       "obtained": 200,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/assignments?date=2026-11-12&token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?date=2026-11-16&token=1794824604785",
       "status": 200,
       "data": [
         {
           "id": 1,
           "plantId": "PLASSB",
           "plantName": "PlasSB Ltd.",
-          "date": "2026-11-12",
+          "date": "2026-11-16",
           "containerIds": [
             "CONT-003",
             "CONT-006",
@@ -1386,7 +1371,7 @@
           "totalPackages": 4950,
           "totalTons": 0.14850000000000002,
           "assignedBy": "ana.garcia@ecoembes.es",
-          "createdAt": "2026-11-12T03:39:29.3882347"
+          "createdAt": "2026-11-16T11:23:25.1604957"
         }
       ]
     },
@@ -1398,7 +1383,7 @@
       "obtained": 201,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/containers?token=1794451168988",
+      "url": "/api/containers?token=1794824604785",
       "body": {
         "id": "CONT-012",
         "address": "Calle de Prueba 11, Bilbao",
@@ -1425,16 +1410,16 @@
       "obtained": 409,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/CONTSOCKET/assignments?token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-003"
         ]
       },
       "status": 409,
       "data": {
-        "message": "El contenedor CONT-003 ya está asignado para la fecha 2026-11-12."
+        "message": "El contenedor CONT-003 ya está asignado para la fecha 2026-11-16."
       }
     },
     {
@@ -1445,9 +1430,9 @@
       "obtained": 400,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": []
       },
       "status": 400,
@@ -1463,9 +1448,9 @@
       "obtained": 400,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-001",
           "CONT-001"
@@ -1484,9 +1469,9 @@
       "obtained": 404,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-001",
           "MISSING"
@@ -1505,9 +1490,9 @@
       "obtained": 404,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/MISSING/assignments?token=1794451168988",
+      "url": "/api/plants/MISSING/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-001"
         ]
@@ -1525,7 +1510,7 @@
       "obtained": 400,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
         "date": null,
         "containerIds": [
@@ -1545,9 +1530,9 @@
       "obtained": 400,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-22",
+        "date": "2026-11-26",
         "containerIds": [
           "CONT-001"
         ]
@@ -1565,9 +1550,9 @@
       "obtained": 409,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-001",
           "CONT-012"
@@ -1586,9 +1571,9 @@
       "obtained": 409,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/CONTSOCKET/assignments?token=1794451168988",
+      "url": "/api/plants/CONTSOCKET/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-13",
+        "date": "2026-11-17",
         "containerIds": [
           "CONT-001",
           "CONT-002",
@@ -1615,9 +1600,9 @@
       "obtained": 409,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-18",
+        "date": "2026-11-22",
         "containerIds": [
           "CONT-001"
         ]
@@ -1635,9 +1620,9 @@
       "obtained": 201,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/plants/PLASSB/assignments?token=1794451168988",
+      "url": "/api/plants/PLASSB/assignments?token=1794824604785",
       "body": {
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-001"
         ]
@@ -1647,7 +1632,7 @@
         "id": 2,
         "plantId": "PLASSB",
         "plantName": "PlasSB Ltd.",
-        "date": "2026-11-12",
+        "date": "2026-11-16",
         "containerIds": [
           "CONT-001"
         ],
@@ -1655,7 +1640,7 @@
         "totalPackages": 400,
         "totalTons": 0.012,
         "assignedBy": "ana.garcia@ecoembes.es",
-        "createdAt": "2026-11-12T03:39:30.9815707"
+        "createdAt": "2026-11-16T11:23:26.8409869"
       }
     },
     {
@@ -1694,7 +1679,7 @@
       "obtained": 400,
       "state": "PASS",
       "method": "GET",
-      "url": "/api/plants/PLASSB/capacity?date=not-a-date&token=1794451168988",
+      "url": "/api/plants/PLASSB/capacity?date=not-a-date&token=1794824604785",
       "status": 400,
       "data": {
         "message": "Los datos de la petición no tienen un formato válido"
@@ -1708,7 +1693,7 @@
       "obtained": 204,
       "state": "PASS",
       "method": "POST",
-      "url": "/api/auth/logout?token=1794451168988",
+      "url": "/api/auth/logout?token=1794824604785",
       "status": 204,
       "data": ""
     }

@@ -67,7 +67,8 @@ class EcoembesFacadeHttpTest {
                 .param("to", today.toString())
                 .param("token", token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[4].packageCount").value(400));
+                .andExpect(jsonPath("$[4].packageCount").value(400))
+                .andExpect(jsonPath("$[4].fillLevel").doesNotExist());
 
         mvc.perform(get("/api/zones/48009/containers")
                 .param("date", today.toString())
@@ -75,12 +76,13 @@ class EcoembesFacadeHttpTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value("CONT-001"));
 
-        // El sensor NO necesita token y acepta cero envases.
+        // El sensor NO necesita token ni proporciona fillLevel; acepta cero envases.
         mvc.perform(post("/api/containers/CONT-011/readings")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"packageCount\":0,\"fillLevel\":\"GREEN\"}"))
+                .content("{\"packageCount\":0}"))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.packageCount").value(0));
+                .andExpect(jsonPath("$.packageCount").value(0))
+                .andExpect(jsonPath("$.fillLevel").doesNotExist());
 
         mvc.perform(get("/api/plants").param("token", token))
                 .andExpect(status().isOk())
@@ -117,12 +119,12 @@ class EcoembesFacadeHttpTest {
 
         mvc.perform(post("/api/containers/CONT-011/readings")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"packageCount\":100,\"fillLevel\":\"GREEN\"}"))
+                .content("{\"packageCount\":100}"))
                 .andExpect(status().isCreated());
 
         mvc.perform(post("/api/containers/CONT-011/readings")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"packageCount\":999,\"fillLevel\":\"RED\"}"))
+                .content("{\"packageCount\":999}"))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.message").exists());
 
@@ -131,8 +133,13 @@ class EcoembesFacadeHttpTest {
                 .param("token", token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].packageCount").value(100))
-                .andExpect(jsonPath("$[0].fillLevel").value("GREEN"))
+                .andExpect(jsonPath("$[0].fillLevel").doesNotExist())
                 .andExpect(jsonPath("$[1]").doesNotExist());
+
+        // El DTO de contenedor general sí sigue ofreciendo el nivel calculado.
+        mvc.perform(get("/api/containers").param("token", token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[10].fillLevel").value("GREEN"));
     }
 
     @Test
@@ -155,18 +162,18 @@ class EcoembesFacadeHttpTest {
 
     @Test
     void lecturasNulasRespetanPrioridadYAsignacionConFechaNulaEs400() throws Exception {
-        // Un contenedor inexistente devuelve 404 antes de validar los campos de la lectura.
+        // Un contenedor inexistente devuelve 404 antes de validar la cantidad.
         mvc.perform(post("/api/containers/NO-EXISTE/readings")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"fillLevel\":\"GREEN\"}"))
+                .content("{}"))
                 .andExpect(status().isNotFound());
         mvc.perform(post("/api/containers/NO-EXISTE/readings")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"packageCount\":null,\"fillLevel\":\"GREEN\"}"))
+                .content("{\"packageCount\":null}"))
                 .andExpect(status().isNotFound());
         mvc.perform(post("/api/containers/CONT-001/readings")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"packageCount\":0,\"fillLevel\":null}"))
+                .content("{\"packageCount\":null}"))
                 .andExpect(status().isBadRequest());
 
         mvc.perform(post("/api/plants/PLASSB/assignments")

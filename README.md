@@ -17,9 +17,9 @@ El Prototipo 1 implementa:
 
 - **Autenticación del personal:** inicio y cierre de sesión mediante correo electrónico, contraseña y token de sesión. Este no tiene caducidad automática; se invalida al cerrar sesión o reiniciar el servidor.
 - **Gestión de contenedores:** registro y listado de contenedores, con su ubicación y capacidad.
-- **Lecturas de sensores:** recepción diaria de la cantidad estimada de envases y del nivel de llenado (`GREEN`, `ORANGE` o `RED`).
+- **Lecturas de sensores:** recepción diaria de la cantidad estimada de envases. El servidor calcula el nivel de llenado (`GREEN`, `ORANGE` o `RED`) a partir de la capacidad del contenedor.
 - **Consultas de información:** historial por intervalo de fechas y estado de contenedores agrupados por zona postal.
-- **Gestión de plantas:** consulta de capacidad de tratamiento disponible para fechas concretas.
+- **Gestión de plantas:** consulta de capacidad de tratamiento disponible para fechas concretas y conservación en memoria del histórico de capacidades consultadas.
 - **Asignaciones y auditoría:** selección de contenedores, validación de capacidad y registro de la persona responsable.
 - **Integraciones extensibles:** dos plantas simuladas detrás de una interfaz común, preparada para incorporar nuevas implementaciones.
 

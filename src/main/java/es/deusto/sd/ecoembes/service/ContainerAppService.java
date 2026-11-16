@@ -64,20 +64,16 @@ public class ContainerAppService {
         return container;
     }
 
-    /** Registra la primera lectura de hoy; jamás sobrescribe una existente. */
-    public synchronized ContainerReading registerReading(
-            String containerId, Integer packageCount, FillLevel level) {
-
+    /** Registra la primera lectura de hoy, calculando el nivel sin recibirlo del sensor. */
+    public synchronized ContainerReading registerReading(String containerId, Integer packageCount) {
         Container container = getContainer(containerId); // 404 antes de validar contenido.
 
-        if (packageCount == null || packageCount < 0
-                || packageCount > container.getCapacity() || level == null) {
-            throw new BadRequestException(
-                    "Cantidad de envases o nivel de llenado incorrecto.");
+        if (packageCount == null || packageCount < 0 || packageCount > container.getCapacity()) {
+            throw new BadRequestException("Cantidad de envases incorrecta.");
         }
 
-        ContainerReading reading = new ContainerReading(
-                LocalDate.now(), packageCount, level);
+        FillLevel level = FillLevel.fromRatio(packageCount, container.getCapacity());
+        ContainerReading reading = new ContainerReading(LocalDate.now(), packageCount, level);
 
         container.addReading(reading); // 409 si ya hay una medición para hoy.
         return reading;
@@ -110,12 +106,10 @@ public class ContainerAppService {
     private void addSeed(String id, String address, String postalCode, int capacity, int countToday) {
         Container container = new Container(id, address, postalCode, capacity);
         LocalDate today = LocalDate.now();
-        // Cinco lecturas de hoy-4 hasta hoy, con nivel derivado solo para la semilla.
+        // Cinco lecturas de hoy-4 hasta hoy, con nivel calculado en el servidor.
         for (int day = 4; day >= 0; day--) {
             int count = countToday * (5 - day) / 5;
-            double fraction = (double) count / capacity;
-            FillLevel level = fraction < 0.50 ? FillLevel.GREEN
-                    : fraction < 0.85 ? FillLevel.ORANGE : FillLevel.RED;
+            FillLevel level = FillLevel.fromRatio(count, capacity);
             container.addReading(new ContainerReading(today.minusDays(day), count, level));
         }
         containers.put(id, container);

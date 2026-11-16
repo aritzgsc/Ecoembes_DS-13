@@ -38,7 +38,7 @@ class DtoAssemblerTest {
     }
 
     @Test
-    void contenedorConLecturaYLecturaIndividualConservanDatos() {
+    void contenedorConLecturaConservaNivelPeroDtoHistoricoNoLoExpone() {
         LocalDate date = LocalDate.of(2026, 11, 11);
         Container container = new Container("CONT-001", "Calle Ercilla 10", "48009", 2000);
         ContainerReading reading = new ContainerReading(date, 400, FillLevel.GREEN);
@@ -54,7 +54,8 @@ class DtoAssemblerTest {
         assertEquals(date, dto.readingDate());
         assertEquals(date, readingDto.date());
         assertEquals(400, readingDto.packageCount());
-        assertEquals(FillLevel.GREEN, readingDto.fillLevel());
+        assertEquals(2, ContainerReadingDTO.class.getRecordComponents().length,
+                "El DTO histórico solo debe contener date y packageCount");
     }
 
     @Test
