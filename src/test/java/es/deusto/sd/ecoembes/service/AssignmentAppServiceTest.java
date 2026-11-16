@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import es.deusto.sd.ecoembes.domain.Assignment;
 import es.deusto.sd.ecoembes.domain.Employee;
-import es.deusto.sd.ecoembes.domain.FillLevel;
 import es.deusto.sd.ecoembes.exception.BadRequestException;
 import es.deusto.sd.ecoembes.exception.ConflictException;
 import es.deusto.sd.ecoembes.exception.NotFoundException;
@@ -56,6 +55,9 @@ class AssignmentAppServiceTest {
         assertEquals(0.1485, assignment.getTotalTons(), EPSILON);
         assertEquals(0.1485, assignmentService.getAssignedTons("PLASSB", today), EPSILON);
         assertEquals(List.of(assignment), assignmentService.getAssignments("PLASSB", today));
+        // La asignación también consulta y registra la capacidad de la planta.
+        assertEquals(0.40, plantService.getPlant("PLASSB")
+                .getCapacityAt(today).orElseThrow().getTotalTons(), EPSILON);
     }
 
     @Test
@@ -84,7 +86,8 @@ class AssignmentAppServiceTest {
         assertTrue(app.getAssignments("PLASSB", null).isEmpty());
         assertEquals(0, fakePlas.notifications.size());
 
-        containerService.registerReading("CONT-011", 125, FillLevel.GREEN);
+        // La entrada del sensor solo transmite packageCount.
+        containerService.registerReading("CONT-011", 125);
         Assignment accepted = app.assignContainers(ana, "PLASSB", today, List.of("CONT-011"));
         assertEquals(125, accepted.getTotalPackages());
         assertEquals(0.00375, accepted.getTotalTons(), EPSILON);

@@ -18,7 +18,7 @@ import es.deusto.sd.ecoembes.exception.BadRequestException;
 import es.deusto.sd.ecoembes.exception.ConflictException;
 import es.deusto.sd.ecoembes.exception.NotFoundException;
 
-/** Pruebas del servicio sin arrancar el contexto de Spring. */
+/** Pruebas del servicio sin arrancar el contexto Spring. */
 class ContainerAppServiceTest {
 
     private ContainerAppService service;
@@ -65,8 +65,9 @@ class ContainerAppServiceTest {
         assertTrue(container.getLatestReading().isEmpty());
         assertFalse(service.getContainersByZone("48009", today).contains(container));
 
-        ContainerReading reading = service.registerReading("CONT-011", 125, FillLevel.GREEN);
+        ContainerReading reading = service.registerReading("CONT-011", 125);
         assertEquals(today, reading.getDate());
+        assertEquals(FillLevel.GREEN, reading.getFillLevel());
         assertEquals(125, container.getLatestReading().orElseThrow().getPackageCount());
         assertTrue(service.getContainersByZone("48009", today).contains(container));
     }
@@ -83,13 +84,13 @@ class ContainerAppServiceTest {
     @Test
     void sensorValidaExistenciaYCapacidadAntesDeComprobarDuplicados() {
         assertThrows(NotFoundException.class,
-                () -> service.registerReading("CONT-999", -1, FillLevel.GREEN));
+                () -> service.registerReading("CONT-999", -1));
         assertThrows(BadRequestException.class,
-                () -> service.registerReading("CONT-001", 2001, FillLevel.GREEN));
+                () -> service.registerReading("CONT-001", 2001));
         assertThrows(BadRequestException.class,
-                () -> service.registerReading("CONT-001", 500, null));
+                () -> service.registerReading("CONT-001", null));
         Container container = service.createContainer("CONT-011", "Calle 1", "48009", 1000);
-        assertEquals(0, service.registerReading("CONT-011", 0, FillLevel.GREEN).getPackageCount());
+        assertEquals(0, service.registerReading("CONT-011", 0).getPackageCount());
         assertEquals(0, container.getLatestReading().orElseThrow().getPackageCount());
     }
 
@@ -97,18 +98,35 @@ class ContainerAppServiceTest {
     void sensorDuplicadoHoyDaConflictoYSinSobrescritura() {
         Container container = service.getContainer("CONT-001");
         assertThrows(ConflictException.class,
-                () -> service.registerReading("CONT-001", 500, FillLevel.ORANGE));
+                () -> service.registerReading("CONT-001", 500));
         assertEquals(5, container.getReadings().size());
         assertEquals(400, container.getLatestReading().orElseThrow().getPackageCount());
         assertEquals(FillLevel.GREEN, container.getLatestReading().orElseThrow().getFillLevel());
         assertEquals(0.012, container.getLatestReading().orElseThrow().getTons(), 1e-12);
 
         Container nuevo = service.createContainer("CONT-011", "Calle 1", "48009", 1000);
-        service.registerReading("CONT-011", 125, FillLevel.GREEN);
+        service.registerReading("CONT-011", 125);
         assertThrows(ConflictException.class,
-                () -> service.registerReading("CONT-011", 140, FillLevel.GREEN));
+                () -> service.registerReading("CONT-011", 140));
         assertEquals(1, nuevo.getReadings().size());
         assertEquals(125, nuevo.getLatestReading().orElseThrow().getPackageCount());
+    }
+
+    @Test
+    void nivelSeCalculaAutomaticamenteConUmbralesDe50Y85PorCiento() {
+        assertEquals(FillLevel.GREEN, FillLevel.fromRatio(0, 1000));
+        assertEquals(FillLevel.GREEN, FillLevel.fromRatio(499, 1000));
+        assertEquals(FillLevel.ORANGE, FillLevel.fromRatio(500, 1000));
+        assertEquals(FillLevel.ORANGE, FillLevel.fromRatio(849, 1000));
+        assertEquals(FillLevel.RED, FillLevel.fromRatio(850, 1000));
+        assertEquals(FillLevel.RED, FillLevel.fromRatio(1000, 1000));
+
+        service.createContainer("CONT-A", "Calle 1", "48009", 1000);
+        service.createContainer("CONT-B", "Calle 2", "48009", 1000);
+        service.createContainer("CONT-C", "Calle 3", "48009", 1000);
+        assertEquals(FillLevel.GREEN, service.registerReading("CONT-A", 499).getFillLevel());
+        assertEquals(FillLevel.ORANGE, service.registerReading("CONT-B", 500).getFillLevel());
+        assertEquals(FillLevel.RED, service.registerReading("CONT-C", 850).getFillLevel());
     }
 
     @Test

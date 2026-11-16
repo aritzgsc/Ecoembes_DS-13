@@ -29,10 +29,9 @@ public final class DtoAssembler {
                 current.getTons(), current.getDate());
     }
 
-    /** Convierte una medición conservando exactamente su fecha, cantidad y nivel. */
+    /** Convierte una medición sin exponer el nivel de llenado en el historial. */
     public static ContainerReadingDTO toReadingDTO(ContainerReading reading) {
-        return new ContainerReadingDTO(reading.getDate(),
-                reading.getPackageCount(), reading.getFillLevel());
+        return new ContainerReadingDTO(reading.getDate(), reading.getPackageCount());
     }
 
     /** Representación pública mínima de una planta. */

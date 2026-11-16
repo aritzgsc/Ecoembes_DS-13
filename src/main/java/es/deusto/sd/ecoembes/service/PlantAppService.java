@@ -10,7 +10,7 @@ import es.deusto.sd.ecoembes.exception.BadRequestException;
 import es.deusto.sd.ecoembes.exception.NotFoundException;
 import es.deusto.sd.ecoembes.external.RecyclingPlantGateway;
 
-/** Consulta las plantas externas simuladas sin acoplarse a su protocolo. */
+/** Consulta plantas externas simuladas y conserva sus capacidades conocidas. */
 @Service
 public class PlantAppService {
 
@@ -38,20 +38,24 @@ public class PlantAppService {
                 .orElseThrow(() -> new NotFoundException("No existe la planta: " + plantId));
     }
 
-    /** Consulta toneladas totales en los diez días permitidos: de hoy a hoy+9. */
+    /** Consulta las toneladas totales para los diez días permitidos y registra el dato. */
     public double getTotalCapacity(String plantId, LocalDate date) {
-        getPlant(plantId); // Primero se comprueba la existencia (404).
+        RecyclingPlant plant = getPlant(plantId); // Primero se comprueba la existencia (404).
 
         LocalDate today = LocalDate.now();
         if (date == null || date.isBefore(today) || date.isAfter(today.plusDays(9))) {
             throw new BadRequestException("La fecha debe estar entre hoy y los próximos nueve días.");
         }
 
-        return gateways.stream()
+        double totalTons = gateways.stream()
                 .filter(gateway -> gateway.getPlantId().equals(plantId))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("No existe la planta: " + plantId))
                 .getCapacity(date);
+
+        // Un registro por fecha. Los registros de fechas pasadas NO se eliminan.
+        plant.recordCapacity(date, totalTons);
+        return totalTons;
     }
 
     /** Notifica la asignación a la planta indicada (simulada en P1). */

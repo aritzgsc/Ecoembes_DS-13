@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import es.deusto.sd.ecoembes.domain.PlantCapacityRecord;
+import es.deusto.sd.ecoembes.domain.RecyclingPlant;
 import es.deusto.sd.ecoembes.exception.BadRequestException;
 import es.deusto.sd.ecoembes.exception.NotFoundException;
 import es.deusto.sd.ecoembes.external.ContSocketGateway;
@@ -54,6 +56,50 @@ class PlantAppServiceTest {
     }
 
     @Test
+    void historicoGuardaPorFechaYPorPlantaSinBorrarFechasAnteriores() {
+        PlantAppService service = newService();
+        LocalDate today = LocalDate.now();
+        RecyclingPlant plas = service.getPlant("PLASSB");
+        RecyclingPlant cont = service.getPlant("CONTSOCKET");
+        assertTrue(plas.getCapacityHistory().isEmpty());
+
+        service.getTotalCapacity("PLASSB", today.plusDays(1));
+        service.getTotalCapacity("PLASSB", today);
+        service.getTotalCapacity("PLASSB", today); // Repetir fecha no añade otro registro.
+        service.getTotalCapacity("CONTSOCKET", today);
+
+        assertEquals(2, plas.getCapacityHistory().size());
+        assertEquals(today, plas.getCapacityHistory().get(0).getDate());
+        assertEquals(today.plusDays(1), plas.getCapacityHistory().get(1).getDate());
+        assertEquals(0.40, plas.getCapacityAt(today).orElseThrow().getTotalTons(), 1e-9);
+        assertEquals(0.35, plas.getCapacityAt(today.plusDays(1)).orElseThrow().getTotalTons(), 1e-9);
+        assertTrue(plas.getCapacityAt(today.plusDays(2)).isEmpty());
+        assertEquals(1, cont.getCapacityHistory().size());
+        assertEquals(0.30, cont.getCapacityAt(today).orElseThrow().getTotalTons(), 1e-9);
+        assertThrows(UnsupportedOperationException.class, () -> plas.getCapacityHistory().clear());
+    }
+
+    @Test
+    void registroDeCapacidadValidaYActualizaSinDuplicarFecha() {
+        RecyclingPlant plant = new RecyclingPlant("TEST", "Planta test");
+        LocalDate date = LocalDate.now();
+        PlantCapacityRecord record = new PlantCapacityRecord(date, 0.45);
+        assertEquals(date, record.getDate());
+        assertEquals(0.45, record.getTotalTons(), 1e-9);
+
+        plant.recordCapacity(date, 0.40);
+        plant.recordCapacity(date, 0.50);
+        assertEquals(1, plant.getCapacityHistory().size());
+        assertEquals(0.50, plant.getCapacityAt(date).orElseThrow().getTotalTons(), 1e-9);
+
+        assertThrows(IllegalArgumentException.class, () -> plant.recordCapacity(null, 0.40));
+        assertThrows(IllegalArgumentException.class, () -> plant.recordCapacity(date, -1));
+        assertThrows(IllegalArgumentException.class, () -> plant.recordCapacity(date, Double.NaN));
+        assertThrows(IllegalArgumentException.class, () -> plant.recordCapacity(date, Double.POSITIVE_INFINITY));
+        assertEquals(1, plant.getCapacityHistory().size());
+    }
+
+    @Test
     void rechazaFechasInvalidasAntesDeConsultarElGateway() {
         FakeGateway fake = new FakeGateway();
         PlantAppService service = new PlantAppService(List.of(fake));
@@ -63,6 +109,7 @@ class PlantAppServiceTest {
         assertThrows(BadRequestException.class, () -> service.getTotalCapacity("FAKE", today.minusDays(1)));
         assertThrows(BadRequestException.class, () -> service.getTotalCapacity("FAKE", today.plusDays(10)));
         assertEquals(0, fake.capacityCalls);
+        assertTrue(service.getPlant("FAKE").getCapacityHistory().isEmpty());
     }
 
     @Test
@@ -92,6 +139,8 @@ class PlantAppServiceTest {
         assertEquals("Planta de prueba", service.getPlant("FAKE").getName());
         assertEquals(0.99, service.getTotalCapacity("FAKE", LocalDate.now()), 1e-9);
         assertEquals(1, extra.capacityCalls);
+        assertEquals(0.99, service.getPlant("FAKE")
+                .getCapacityAt(LocalDate.now()).orElseThrow().getTotalTons(), 1e-9);
     }
 
     /** Simula un cambio de fecha llamando solo desde el test al método privado. */

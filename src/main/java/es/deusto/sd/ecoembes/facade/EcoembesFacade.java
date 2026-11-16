@@ -139,7 +139,7 @@ public class EcoembesFacade {
 
     /** 5. Devuelve las lecturas de un contenedor en un intervalo inclusivo. */
     @GetMapping("/containers/{containerId}/readings")
-    @Operation(summary = "Consultar historial de un contenedor", description = "Devuelve las lecturas del intervalo inclusivo [from, to], ordenadas por fecha. Un intervalo sin lecturas devuelve una lista vacía.")
+    @Operation(summary = "Consultar historial de un contenedor", description = "Devuelve las lecturas del intervalo inclusivo [from, to], ordenadas por fecha, con date y packageCount (sin fillLevel). Un intervalo sin lecturas devuelve una lista vacía.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Historial recuperado",
                     content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ContainerReadingDTO.class)))),
@@ -191,9 +191,9 @@ public class EcoembesFacade {
         return ResponseEntity.ok(result);
     }
 
-    /** 7. El sensor no usa token; un duplicado del día produce 409 sin sobrescritura. */
+    /** 7. El sensor envía solo la cantidad; el servidor calcula el nivel. */
     @PostMapping("/containers/{containerId}/readings")
-    @Operation(summary = "Registrar lectura del sensor", description = "Operación simulada del sensor, sin token del personal. La fecha se obtiene del servidor. Acepta entre cero y la capacidad del contenedor y un nivel GREEN, ORANGE o RED. La primera lectura del día devuelve 201; un duplicado devuelve 409 y conserva la lectura original.")
+    @Operation(summary = "Registrar lectura del sensor", description = "Operación simulada del sensor, sin token del personal. La fecha se obtiene del servidor. El body solo contiene packageCount, entre cero y la capacidad del contenedor; el servidor calcula internamente GREEN, ORANGE o RED. La primera lectura del día devuelve 201 con date y packageCount; un duplicado devuelve 409 y conserva la lectura original.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Lectura registrada",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContainerReadingDTO.class))),
@@ -209,7 +209,7 @@ public class EcoembesFacade {
             @PathVariable String containerId,
             @RequestBody SensorReadingDTO request) {
         ContainerReading reading = containerAppService.registerReading(
-                containerId, request.packageCount(), request.fillLevel());
+                containerId, request.packageCount());
         return ResponseEntity.status(201).body(DtoAssembler.toReadingDTO(reading));
     }
 
@@ -233,7 +233,7 @@ public class EcoembesFacade {
 
     /** 9. Consulta la capacidad total, asignada y disponible de una planta. */
     @GetMapping("/plants/{plantId}/capacity")
-    @Operation(summary = "Consultar capacidad de una planta", description = "Capacidades simuladas en toneladas para hoy y los nueve días siguientes, según la fecha del servidor. availableTons = totalTons - assignedTons.")
+    @Operation(summary = "Consultar capacidad de una planta", description = "Capacidades simuladas en toneladas para hoy y los nueve días siguientes, según la fecha del servidor. La capacidad total consultada se conserva en el histórico de la planta; availableTons = totalTons - assignedTons.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Capacidad recuperada",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = PlantCapacityDTO.class))),

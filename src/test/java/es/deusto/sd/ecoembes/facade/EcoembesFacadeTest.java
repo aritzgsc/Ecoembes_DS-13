@@ -122,34 +122,29 @@ class EcoembesFacadeTest {
     @Test
     void registrarLecturaEs201YDuplicadaEs409SinSobrescribir() {
         facade.createContainer(new ContainerCreateDTO("CONT-011", "Nueva", "48009", 1000), token);
-        var response = facade.registerReading("CONT-011", new SensorReadingDTO(0, FillLevel.GREEN));
+        var response = facade.registerReading("CONT-011", new SensorReadingDTO(0));
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(0, response.getBody().packageCount());
         assertEquals(today, response.getBody().date());
+        assertEquals(2, response.getBody().getClass().getRecordComponents().length);
         assertThrows(ConflictException.class,
-                () -> facade.registerReading("CONT-011", new SensorReadingDTO(20, FillLevel.RED)));
+                () -> facade.registerReading("CONT-011", new SensorReadingDTO(20)));
         assertEquals(1, facade.getContainerReadings("CONT-011", today, today, token).getBody().size());
-        assertEquals(0, facade.getContainers(token).getBody().stream()
-                .filter(c -> "CONT-011".equals(c.id())).findFirst().orElseThrow().packageCount().intValue());
+        var containerDto = facade.getContainers(token).getBody().stream()
+                .filter(c -> "CONT-011".equals(c.id())).findFirst().orElseThrow();
+        assertEquals(0, containerDto.packageCount().intValue());
+        assertEquals(FillLevel.GREEN, containerDto.fillLevel());
     }
 
-        @Test
-        void sensorValidaPrimeroExistenciaYDespuesDatos() {
-        // 404: el contenedor no existe, aunque la lectura sea inválida.
+    @Test
+    void sensorValidaPrimeroExistenciaYDespuesCantidad() {
         assertThrows(NotFoundException.class,
-                () -> facade.registerReading("NO-EXISTE",
-                        new SensorReadingDTO(null, FillLevel.GREEN)));
-
-        // 400: el contenedor existe, pero el nivel de llenado es nulo.
+                () -> facade.registerReading("NO-EXISTE", new SensorReadingDTO(null)));
         assertThrows(BadRequestException.class,
-                () -> facade.registerReading("CONT-001",
-                        new SensorReadingDTO(0, null)));
-
-        // 404: contenedor inexistente con una lectura válida.
+                () -> facade.registerReading("CONT-001", new SensorReadingDTO(null)));
         assertThrows(NotFoundException.class,
-                () -> facade.registerReading("NO-EXISTE",
-                        new SensorReadingDTO(2, FillLevel.GREEN)));
-        }
+                () -> facade.registerReading("NO-EXISTE", new SensorReadingDTO(2)));
+    }
 
     @Test
     void getPlantsDevuelveDosPlantasConSusIdentificadores() {
